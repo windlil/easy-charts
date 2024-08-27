@@ -31,10 +31,10 @@ importers:
         specifier: ^9.9.0
         version: 9.9.1
       eslint-plugin-react-hooks:
-        specifier: ^5.1.0-rc.0
+        specifier: 5.1.0-rc-fb9a90fa48-20240614
         version: 5.1.0-rc-fb9a90fa48-20240614(eslint@9.9.1)
       eslint-plugin-react-refresh:
-        specifier: ^0.4.9
+        specifier: ^0.4.11
         version: 0.4.11(eslint@9.9.1)
       globals:
         specifier: ^15.9.0
