@@ -1,4 +1,4 @@
-import EditorLayout from '@/layouts/editor-layout'
+import EditorLayout from '@/layouts/EditoreLayout'
 
 const EditorPage = () => {
   return (
