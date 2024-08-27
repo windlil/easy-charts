@@ -1,8 +1,8 @@
+import EditorLayout from '@/layouts/editor-layout'
+
 const EditorPage = () => {
   return (
-    <div>
-      Editor
-    </div>
+    <EditorLayout></EditorLayout>
   )
 }
 

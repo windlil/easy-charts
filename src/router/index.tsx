@@ -1,5 +1,6 @@
 import { createElement, lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import _ConfigProvider from './ConfigProvider'
 
 function createLazyElement(load: () => Promise<{ default: React.ComponentType<any> }>) {
   return (
@@ -12,10 +13,12 @@ function createLazyElement(load: () => Promise<{ default: React.ComponentType<an
 const router = createBrowserRouter([
   {
     path: '/editor',
-    element: createLazyElement(() => import('@/pages/editor'))
+    element: createLazyElement(() => import('@/pages/editor/index'))
   },
 ])
 
-const Router = () => <RouterProvider router={router} />
+const Router = () => <_ConfigProvider>
+  <RouterProvider router={router} />
+</_ConfigProvider>
 
 export default Router
