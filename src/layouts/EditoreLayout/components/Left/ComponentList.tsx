@@ -1,5 +1,5 @@
 import ComponentItem from '@/components/render-components/ComponentItem'
-import { ComponentItem as ComponentItemType } from '@/global/menu'
+import { ComponentItem as ComponentItemType } from '@/global'
 import { FC, useMemo } from 'react'
 
 const ComponentList:FC<{

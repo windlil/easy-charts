@@ -1,5 +1,5 @@
 import { Menu as AntdMenu } from 'antd'
-import { settingAttributeMenuList } from '@/global/menu'
+import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
 
 const Right = () => {
