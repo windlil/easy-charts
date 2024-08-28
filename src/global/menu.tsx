@@ -3,7 +3,6 @@ import {
   FontSizeOutlined, 
   HeatMapOutlined,
   AppstoreAddOutlined,
-  EllipsisOutlined, 
   DatabaseOutlined
 } from '@ant-design/icons'
 import { MenuProps } from 'antd'
@@ -77,5 +76,41 @@ export const settingAttributeMenuList: MenuItem[] = [
   {
     label: '主题',
     key: 'theme'
+  }
+]
+
+interface ChartItem {
+  name: string
+  key: string
+  type: ChartType
+  img: string
+}
+
+type ChartType = 'line' | 'pie' | 'columnl' | 'dashboard'
+
+export const ChartList: ChartItem[] = [
+  {
+    name: '折线图',
+    key: 'baseLine',
+    type: 'line',
+    img: 'https://xiaopujun.github.io/light-chaser-app/assets/base-area-CtNnIUUi.png'
+  },
+  {
+    name: '饼图',
+    key: 'basePie',
+    type: 'pie',
+    img: 'https://xiaopujun.github.io/light-chaser-app/assets/pie-CRAHHn6h.png',
+  },
+  {
+    name: '柱状图',
+    key: 'baseColumnl',
+    type: 'columnl',
+    img: 'https://xiaopujun.github.io/light-chaser-app/assets/base-column-DBv19rZt.png',
+  },
+  {
+    name: '仪表盘',
+    key: 'baseDashboard',
+    type: 'dashboard',
+    img: 'https://xiaopujun.github.io/light-chaser-app/assets/radar-B2krN29c.png'
   }
 ]

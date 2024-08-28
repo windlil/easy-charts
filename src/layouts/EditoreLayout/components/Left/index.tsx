@@ -1,4 +1,4 @@
-import Menu from './menu'
+import Menu from './Menu'
 
 const Left = () => {
   return (

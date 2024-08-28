@@ -1,5 +1,5 @@
 import { ScanEye, Save, Laptop, ChevronLeft } from 'lucide-react'
-import TextButton from '@/components/render-components/TextButton'
+import TextButton from '@/components/view-components/TextButton'
 
 const Header = () => {
   return (
