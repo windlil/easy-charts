@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
   PieChartOutlined, 
   FontSizeOutlined, 
@@ -5,9 +6,26 @@ import {
   AppstoreAddOutlined,
   DatabaseOutlined
 } from '@ant-design/icons'
-import { MenuProps } from 'antd'
 
-type MenuItem = Required<MenuProps>['items'][number];
+interface MenuItem {
+  key: string
+  label: string
+  icon?: ReactNode
+}
+
+export interface ComponentItem {
+  name: string
+  key: string
+  type: ComponentType
+  img: string
+}
+
+interface subMenuItem {
+  key: ComponentType
+  label: string
+}
+
+type ComponentType = 'line' | 'pie' | 'columnl' | 'dashboard' | 'all'
 
 export const mainMenuItems: MenuItem[] = [
   {
@@ -37,7 +55,7 @@ export const mainMenuItems: MenuItem[] = [
   }
 ]
 
-export const chartMenuItems: MenuItem[] = [
+export const chartMenuItems: subMenuItem[] = [
   {
     key: 'all',
     label: '全部',
@@ -79,16 +97,7 @@ export const settingAttributeMenuList: MenuItem[] = [
   }
 ]
 
-interface ChartItem {
-  name: string
-  key: string
-  type: ChartType
-  img: string
-}
-
-type ChartType = 'line' | 'pie' | 'columnl' | 'dashboard'
-
-export const ChartList: ChartItem[] = [
+export const ChartList: ComponentItem[] = [
   {
     name: '折线图',
     key: 'baseLine',

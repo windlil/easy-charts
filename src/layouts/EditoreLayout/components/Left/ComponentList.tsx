@@ -1,16 +1,24 @@
 import ComponentItem from '@/components/render-components/ComponentItem'
-import { ChartList } from '@/global/menu'
+import { ComponentItem as ComponentItemType } from '@/global/menu'
+import { FC, useMemo } from 'react'
 
-const ComponentList = () => {
+const ComponentList:FC<{
+  curSelectedType: string
+  componentArray: ComponentItemType[] | []
+}> = ({ curSelectedType, componentArray }) => {
+  const renderList = useMemo(() => {
+    if (curSelectedType === 'all') {
+      return componentArray
+    } else {
+      return componentArray.filter(comp => comp.type === curSelectedType)
+    }
+  }, [curSelectedType, componentArray])
 
-  
   return (
     <div className='w-full h-full'>
-      {ChartList.map((chart) => {
-        return (
-          <ComponentItem name={chart.name} key={chart.key} img={chart.img} />
-        )
-      })}
+      {renderList.length ? renderList.map(comp => (
+        <ComponentItem name={comp.name} key={comp.key} img={comp.img} />
+      )) : null}
     </div>    
   )
 }
