@@ -3,7 +3,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #1f1f1f;
+  background-color: #0f1011;
+  overflow: hidden;
 
   .editorLayoutHeader {
     width: 100vw;
@@ -23,10 +24,22 @@
 
   .editorLayoutCenter {
     flex: 1;
-    background-color: #434343;
+    background-color: #272727;
   }
 
   .editorLayoutRight {
     width: 20vw;
+    height: 100%;
+  }
+
+  .editorLayoutFooter {
+    width: 100%;
+    height: 36px;
+    border-top: 1px solid #3f3f3f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-size: 12px;
   }
 }

@@ -32,11 +32,6 @@ export const mainMenuItems: MenuItem[] = [
     icon: <AppstoreAddOutlined />
   },
   {
-    key: 'other',
-    label: '其它',
-    icon: <EllipsisOutlined />
-  },
-  {
     key: 'tree',
     label: '图层',
     icon: <DatabaseOutlined />
@@ -68,19 +63,19 @@ export const chartMenuItems: MenuItem[] = [
 
 export const settingAttributeMenuList: MenuItem[] = [
   {
-    key: '基础',
-    label: 'base'
+    label: '基础',
+    key: 'base'
   },
   {
-    key: '样式',
-    label: 'style',
+    label: '样式',
+    key: 'style',
   },
   {
-    key: '数据',
-    label: 'data',
+    label: '数据',
+    key: 'data',
   },
   {
-    key: '主题',
-    label: 'theme'
+    label: '主题',
+    key: 'theme'
   }
 ]
