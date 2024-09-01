@@ -4,5 +4,5 @@ export interface subMenuItem {
   label: string
 }
 
-export * from './MAIN_MENU'
-export * from './CHART'
+export * from './main-menu'
+export * from './chart'

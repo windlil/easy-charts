@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Left from './components/Left'
 import Right from './components/Right'
 import Footer from './components/Footer'
+import Canvas from './components/Canvas'
 
 const EditorLayout = () => {
   return (
@@ -15,7 +16,7 @@ const EditorLayout = () => {
           <Left />
         </div>
         <div className={styles.editorLayoutCenter}>
-          center
+          <Canvas />
         </div>
         <div className={styles.editorLayoutRight}>
           <Right />

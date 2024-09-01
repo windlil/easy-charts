@@ -1,5 +1,5 @@
 import { subMenuItem } from '.'
-import { ComponentItem } from './MAIN_MENU'
+import { ComponentItem } from './main-menu'
 
 export const chartMenuItems: subMenuItem[] = [
   {
