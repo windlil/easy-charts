@@ -1,7 +1,7 @@
 import { Menu as AntdMenu } from 'antd'
 import styles from './index.module.less'
 import { ChartList, chartMenuItems, mainMenuItems } from '@/global'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { MenuFoldOutlined } from '@ant-design/icons'
 import ComponentList from './ComponentList'
 import { useMemo, useState } from 'react'
 

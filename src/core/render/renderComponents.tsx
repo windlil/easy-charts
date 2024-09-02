@@ -30,7 +30,7 @@ const Component:FC<{
 export const renderComponents = (components: ComponentItem[]) => {
   return components.map((component) => {
     return (
-      <Component component={component} />
+      <Component component={component} key={component.id} />
     )
   })
 }

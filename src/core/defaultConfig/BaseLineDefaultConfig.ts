@@ -1,3 +1,5 @@
+import { CommonConfig } from './CommonConfig'
+
 const data = [
   { year: '1991', value: 3 },
   { year: '1992', value: 4 },
@@ -23,8 +25,6 @@ export const BaseLineDefaultConfig = {
   style: {
     lineWidth: 2,
   },
-  smooth: true,
-  width: 300,
-  height: 200,
   theme: 'classicDark',
+  ...CommonConfig
 }

@@ -8,11 +8,16 @@ import { SettingMap } from '@/core/settingMap'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
+  const updateComponent = useComponentsStore(state => state.updateComponent)
   const [currentSettingKey, setCurrentSettingKey] = useState('base')
   const [form] = Form.useForm()
 
   const handleClickSettingMenu = (items: any) => {
     setCurrentSettingKey(items.key)
+  }
+
+  const handlePropsChange = (values: any) => {
+    updateComponent(values)
   }
 
   useEffect(() => {
@@ -34,6 +39,7 @@ const Right = () => {
             wrapperCol={{ span: 16 }}
             size='small'
             form={form}
+            onValuesChange={handlePropsChange}
           >
             {SettingMap[curComponent.name]['base'].map(item => (
               <Form.Item name={item.name} className='mb-4' label={item.label} key={Math.random()}>

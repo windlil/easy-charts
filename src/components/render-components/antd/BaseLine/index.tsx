@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Line } from '@ant-design/charts'
 
 const BaseLine: React.FC<{
   config: any
-}> = ({ config }) => {
-  
+}> = memo(({ config }) => {
   return <Line {...config} />
-}
+})
 
 export default BaseLine

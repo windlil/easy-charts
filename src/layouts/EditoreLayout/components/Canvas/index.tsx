@@ -2,11 +2,11 @@ import { renderComponents } from '@/core/render/renderComponents'
 import useComponentsStore from '@/stores/components'
 
 const Canvas = () => {
-  const componentsStore = useComponentsStore(state => state.componentList)
+  const componentList = useComponentsStore(state => state.componentList)
 
   return (
     <div className='relative'>
-      {renderComponents(componentsStore)}
+      {renderComponents(componentList)}
     </div>
   )
 }

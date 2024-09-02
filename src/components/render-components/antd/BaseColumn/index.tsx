@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Column } from '@ant-design/charts'
 
 const BaseColumn: React.FC<{
   config: any
-}> = ({ config }) => {
+}> = memo(({ config }) => {
   return <Column {...config} />
-}
+})
 
 export default BaseColumn
