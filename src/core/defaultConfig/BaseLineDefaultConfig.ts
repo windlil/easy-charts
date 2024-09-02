@@ -11,15 +11,10 @@ const data = [
 ]
 
 export const BaseLineDefaultConfig = {
+  name: '基础折线图',
   data,
   xField: 'year',
   yField: 'value',
-  width: 300,
-  height: 200,
-  point: {
-    shapeField: 'square',
-    sizeField: 4,
-  },
   interaction: {
     tooltip: {
       marker: false,
@@ -28,5 +23,8 @@ export const BaseLineDefaultConfig = {
   style: {
     lineWidth: 2,
   },
+  smooth: true,
+  width: 300,
+  height: 200,
   theme: 'classicDark',
 }

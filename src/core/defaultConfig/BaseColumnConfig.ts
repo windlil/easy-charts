@@ -1,4 +1,5 @@
 export const BaseColumnConfig = {
+  name: '基础柱状图',
   data: [
     { 'letter': 'A', 'frequency': 0.08167 },
     { 'letter': 'B', 'frequency': 0.01492 },

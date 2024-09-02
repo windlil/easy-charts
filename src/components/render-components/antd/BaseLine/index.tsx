@@ -1,10 +1,11 @@
 import React from 'react'
 import { Line } from '@ant-design/charts'
-import { BaseLineDefaultConfig } from '@/core/defaultConfig'
 
-const BaseLine: React.FC = () => {
+const BaseLine: React.FC<{
+  config: any
+}> = ({ config }) => {
   
-  return <Line {...BaseLineDefaultConfig} />
+  return <Line {...config} />
 }
 
 export default BaseLine

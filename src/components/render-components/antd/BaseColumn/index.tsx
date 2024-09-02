@@ -1,9 +1,10 @@
 import React from 'react'
 import { Column } from '@ant-design/charts'
-import { BaseColumnConfig } from '@/core/defaultConfig'
 
-const BaseColumn: React.FC = () => {
-  return <Column {...BaseColumnConfig} />
+const BaseColumn: React.FC<{
+  config: any
+}> = ({ config }) => {
+  return <Column {...config} />
 }
 
 export default BaseColumn

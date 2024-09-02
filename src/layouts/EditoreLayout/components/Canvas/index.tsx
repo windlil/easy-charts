@@ -1,18 +1,12 @@
 import { renderComponents } from '@/core/render/renderComponents'
-
-const components = [
-  {
-    name: 'BaseColumn'
-  },
-  {
-    name: 'BaseLine'
-  }
-]
+import useComponentsStore from '@/stores/components'
 
 const Canvas = () => {
+  const componentsStore = useComponentsStore(state => state.componentList)
+
   return (
-    <div>
-      {renderComponents(components)}
+    <div className='relative'>
+      {renderComponents(componentsStore)}
     </div>
   )
 }

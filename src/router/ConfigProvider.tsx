@@ -24,7 +24,10 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   itemBg: 'none',
                   itemColor: '#bfbfbf',
                   itemSelectedBg: 'none',
-                  itemBorderRadius: 2
+                  itemBorderRadius: 2,
+              },
+              Form: {
+                labelColor: 'rgb(156,163,175, 0.8)',
               },
               Table: {
                   borderRadius: 2,
@@ -38,7 +41,8 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   borderRadiusLG: 2,
                   borderRadiusXS: 2,
                   borderRadiusSM: 2,
-                  colorBgContainer: '#252525',
+                  colorBgContainer: '#1a1a1a',
+                  colorText: 'rgb(156,163,175, 0.9)',
               },
               Button: {
                   borderRadius: 2,
@@ -60,6 +64,8 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   borderRadiusLG: 2,
                   borderRadiusXS: 2,
                   borderRadiusSM: 2,
+                  colorBgContainer: '#1a1a1a',
+                  colorText: 'rgb(156,163,175, 0.9)',
               },
               Slider: {
                   trackBg: '#0086ce',
