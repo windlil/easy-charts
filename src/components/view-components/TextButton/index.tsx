@@ -16,7 +16,7 @@ const TextButton: FC<{
       icon flex
       items-center
       outline-none border-0 bg-transparent
-      hover:text-[#1668DC] transition active:text-[#3380ec] mx-1`}
+      hover:text-[#2196F3] transition active:text-[#5fb7ff] mx-1`}
     >
       {icon && (
         <span className='mr-1 w-[18px] h-[18px]'>

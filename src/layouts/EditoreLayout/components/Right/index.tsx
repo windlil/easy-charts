@@ -30,10 +30,10 @@ const Right = () => {
   return (
     <div className='w-full h-full flex justify-between'>
       <div className='w-full'>
-        <div className='w-full text-sm bg-[#040404] p-4 py-3 border-b border-[#363636] mb-4'>
-          基础
-        </div>
-        {curComponent ?(
+        {curComponent ? <>
+          <div className='w-full text-sm bg-[#040404] p-4 py-3 border-b border-[#363636] mb-4'>
+            基础
+          </div>
           <Form
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 16 }}
@@ -41,13 +41,14 @@ const Right = () => {
             form={form}
             onValuesChange={handlePropsChange}
           >
-            {SettingMap[curComponent.name]['base'].map(item => (
+            {SettingMap[curComponent.name][currentSettingKey] && 
+            SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
               <Form.Item name={item.name} className='mb-4' label={item.label} key={Math.random()}>
                 {renderSettingItem(item.type)}
               </Form.Item>
             ))}
-          </Form>) : null
-        }
+          </Form>
+        </> : null}
       </div>
       <div className={styles.menuContainer}>
         <AntdMenu

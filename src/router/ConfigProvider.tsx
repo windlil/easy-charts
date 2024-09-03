@@ -23,6 +23,7 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
               Menu: {
                   itemBg: 'none',
                   itemColor: '#bfbfbf',
+                  itemSelectedColor: '#2196F3',
                   itemSelectedBg: 'none',
                   itemBorderRadius: 2,
               },
