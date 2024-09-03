@@ -1,13 +1,16 @@
 import { renderComponents } from '@/core/render/renderComponents'
 import useComponentsStore from '@/stores/components'
 import Ruler from '@scena/react-ruler'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import styles from './index.module.less'
 import useRuler from '@/hooks/useRuler'
+import useCanvasStore from '@/stores/canvas'
+import useCanvasDrop from '@/hooks/useCanvasDrop'
 
 const Canvas = () => {
-  const [width] = useState(800)
-  const [height] = useState(600)
+  const componentList = useComponentsStore(state => state.componentList)
+  const canvasWidth = useCanvasStore(state => state.canvasWidth)
+  const canvasHeight = useCanvasStore(state => state.canvasHeight)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const layoutRef = useRef<HTMLDivElement>(null)
@@ -15,8 +18,8 @@ const Canvas = () => {
   const verticalRulerRef = useRef<Ruler>(null)
   const horizontalRulerRef = useRef<Ruler>(null)
 
-  const componentList = useComponentsStore(state => state.componentList)
   const { containerMouseDown, handleScale, handlePos, zoom, unit, posX, posY } = useRuler(containerRef, layoutRef, canvasRef)
+  const { drop } = useCanvasDrop(canvasRef)
 
 
   /**
@@ -86,19 +89,21 @@ const Canvas = () => {
             ref={layoutRef}
             className={styles.contentLayout}
             style={{
-            width: `${width * 2}px`,
-            height: `${height * 2}px`
+            width: `${canvasWidth * 2}px`,
+            height: `${canvasHeight * 2}px`
             }}
           >
             <div
               ref={canvasRef}
               style={{
-                width: `${width}px`,
-                height: `${height}px`
+                width: `${canvasWidth}px`,
+                height: `${canvasHeight}px`
               }}
               className={styles.contentCanvas}
             >
-              {renderComponents(componentList)}
+              <div ref={drop} className='absolute w-full h-full'>
+                {renderComponents(componentList)}
+              </div>
             </div>
           </div>
         </div>

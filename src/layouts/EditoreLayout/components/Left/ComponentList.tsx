@@ -17,7 +17,7 @@ const ComponentList:FC<{
   return (
     <div className='w-full h-full'>
       {renderList.length ? renderList.map(comp => (
-        <ComponentItem name={comp.name} key={comp.key} img={comp.img} />
+        <ComponentItem name={comp.name} id={comp.key} key={comp.key} img={comp.img} />
       )) : null}
     </div>    
   )

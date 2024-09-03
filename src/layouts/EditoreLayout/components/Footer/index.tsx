@@ -1,6 +1,11 @@
 import { Switch } from 'antd'
+import useCanvasStore from '@/stores/canvas'
+import useComponentsStore from '@/stores/components'
 
 const Footer = () => {
+  const scale = useCanvasStore(state => state.scale)
+  const componentList = useComponentsStore(state => state.componentList)
+
   return (
     <>
       <div className='flex gap-4'>
@@ -15,11 +20,11 @@ const Footer = () => {
       </div>
       <div className='flex gap-1'>
         <div className='w-[80px]'>
-          <span>缩放：100%</span>
+          <span>缩放：{(scale * 100).toFixed(0)}%</span>
           <span></span>
         </div>
         <div className='w-[80px]'>
-          <span>图层：1000</span>
+          <span>图层：{componentList.length}</span>
           <span></span>
         </div>
       </div>

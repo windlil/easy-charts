@@ -21,7 +21,7 @@ export interface ComponentItem {
 }
 
 
-type ComponentType = 'line' | 'pie' | 'columnl' | 'dashboard' | 'all'
+type ComponentType = 'line' | 'pie' | 'column' | 'dashboard' | 'all'
 
 export const mainMenuItems: MenuItem[] = [
   {

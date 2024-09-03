@@ -5,12 +5,14 @@ const TextButton: FC<{
   children?: ReactNode
   size?: 'small'
   icon?: ReactNode
-}> = ({ children, icon, size }) => {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+}> = ({ children, icon, size, onClick }) => {
   return (
     <button
       style={{
         fontSize: size === 'small' ? '12px' : '14px'
       }}
+      onClick={onClick}
       className={`
       ${styles.icon}
       icon flex

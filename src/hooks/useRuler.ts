@@ -1,6 +1,9 @@
 import { RefObject, useState } from 'react'
+import useCanvasStore from '@/stores/canvas'
 
 const useRuler = (containerRef: RefObject<HTMLDivElement>, layoutRef: RefObject<HTMLDivElement>, canvasRef: RefObject<HTMLDivElement>) => {
+  const updateCanvas = useCanvasStore(state => state.updateCanvas)
+
   const [zoom, setZoom] = useState(1)
   const [unit, setUnit] = useState(50)
   const [posX, setPosX] = useState(0)
@@ -59,9 +62,11 @@ const useRuler = (containerRef: RefObject<HTMLDivElement>, layoutRef: RefObject<
       if (e.ctrlKey) {
         if (e.deltaY > 0) {
           scale = scale > 0.5 ? scale - 0.1 : 0.5
+          updateCanvas({scale})
           canvasRef.current!.style.scale = String(scale)
         } else {
           scale = scale < 2 ? scale + 0.1 : 2
+          updateCanvas({scale})
           canvasRef.current!.style.scale = String(scale)
         }
         setZoom(scale)
@@ -81,6 +86,7 @@ const useRuler = (containerRef: RefObject<HTMLDivElement>, layoutRef: RefObject<
     if (containerRef.current && canvasRef.current) {
       const {top: containerTop, left: containerLeft} = containerRef.current.getBoundingClientRect()
       const {top, left} = canvasRef.current.getBoundingClientRect()
+
       setPosX(Math.floor((containerLeft - left) / scale))
       setPosY(Math.floor((containerTop - top) / scale))
     }

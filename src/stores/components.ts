@@ -17,25 +17,12 @@ interface Store {
   updateComponent: (config: any) => void
 }
 
-const mockData: Store['componentList'] = [
-  {
-    id: '1',
-    name: 'BaseLine',
-    config: BaseLineDefaultConfig
-  },
-  {
-    id: '2',
-    name: 'BaseColumn',
-    config: BaseColumnConfig
-  },
-]
-
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
   return componentList.find(component => component.id === id) ?? null
 }
 
 const useComponentsStore = create<Store>()(devtools(immer((set) => ({
-  componentList: mockData,
+  componentList: [],
   curComponent: null,
   addComponent(component) {
     set((state) => {
