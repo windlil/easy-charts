@@ -4,4 +4,5 @@ export const CommonConfig = {
   z: 0,
   width: 300,
   height: 300,
+  animate: false,
 }

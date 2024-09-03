@@ -4,7 +4,8 @@ import useComponentsStore, { ComponentItem } from '@/stores/components'
 
 const Component:FC<{
   component: ComponentItem
-}> = memo(({ component }) => {
+  isActive: boolean
+}> = memo(({ component, isActive }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
 
   const handleClickComponent = (component: ComponentItem) => {
@@ -18,6 +19,7 @@ const Component:FC<{
         left: component.config.x,
         top: component.config.y,
         zIndex: component.config.z,
+        borderColor: isActive ? '#2196F3' : ''
       }}
       key={Math.random()}
       onClick={() => handleClickComponent(component)}
@@ -28,9 +30,11 @@ const Component:FC<{
 })
 
 export const renderComponents = (components: ComponentItem[]) => {
+  const curComponent = useComponentsStore(state => state.curComponent)
+  
   return components.map((component) => {
     return (
-      <Component component={component} key={component.id} />
+      <Component component={component} key={component.id} isActive={curComponent?.id === component.id} />
     )
   })
 }
