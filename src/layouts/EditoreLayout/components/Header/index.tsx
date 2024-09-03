@@ -38,12 +38,6 @@ const Header = () => {
   }
 
   const handleReset = () => {
-    // updateCanvas({
-    //   canvasHeight: 1080,
-    //   canvasWidth: 1920,
-    //   canvasColor: '#363636',
-    //   canvasGrid: false,
-    // })
     form.setFieldsValue({
       canvasHeight,
       canvasWidth,
