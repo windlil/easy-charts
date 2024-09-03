@@ -11,6 +11,7 @@ const Canvas = () => {
   const componentList = useComponentsStore(state => state.componentList)
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
+  const canvasColor = useCanvasStore(state => state.canvasColor)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const layoutRef = useRef<HTMLDivElement>(null)
@@ -97,7 +98,8 @@ const Canvas = () => {
               ref={canvasRef}
               style={{
                 width: `${canvasWidth}px`,
-                height: `${canvasHeight}px`
+                height: `${canvasHeight}px`,
+                backgroundColor: canvasColor
               }}
               className={styles.contentCanvas}
             >

@@ -92,7 +92,7 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
 
           }
       }}>
-          {children}
+        {children}
       </ConfigProvider>
   )
 })

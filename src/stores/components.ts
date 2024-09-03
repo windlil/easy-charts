@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { BaseColumnConfig, BaseLineDefaultConfig } from '@/core/defaultConfig'
 
 export type ComponentItem = {
   id: string
@@ -40,7 +39,7 @@ const useComponentsStore = create<Store>()(devtools(immer((set) => ({
       const curComponent = getCurComponentById(state.componentList, state.curComponent.id)!
       curComponent.config = {
         ...curComponent?.config,
-        ...config
+        ...config,
       }
     })
   }
