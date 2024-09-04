@@ -4,8 +4,12 @@ import { ChartList, chartMenuItems, mainMenuItems } from '@/global'
 import { MenuFoldOutlined } from '@ant-design/icons'
 import ComponentList from './ComponentList'
 import { useMemo, useState } from 'react'
+import useCanvasStore from '@/stores/canvas'
 
 const Menu = () => {
+  const showLeft = useCanvasStore(state => state.showLeft)
+  const updateCanvas = useCanvasStore(state => state.updateCanvas)
+
   const [mainMenuSelectedKey, setMainMenuSelectedKey] = useState('chart')
   const [subMenuSelectedKey, setSubMenuSelectedKey] = useState('all')
 
@@ -55,8 +59,20 @@ const Menu = () => {
   }, [mainMenuSelectedKey, subMenuSelectedKey])
 
   const handleMainMenuClick = (items: { key: string }) => {
+    if (!showLeft) {
+      updateCanvas({
+        showLeft: true
+      })
+    }
     setMainMenuSelectedKey(items.key)
     setSubMenuSelectedKey('all')
+  }
+
+  const handleClose = () => {
+    updateCanvas({
+      showLeft: false
+    })
+    handleMainMenuClick({key: ''})
   }
 
   const handleSubMenuClick = (items: { key: string }) => {
@@ -74,12 +90,12 @@ const Menu = () => {
           onClick={handleMainMenuClick}
         />
       </div>
-      <div className='w-full'>
+      {showLeft && <div className='w-64'>
         <div className='flex items-center justify-between w-full border-b border-[#3f3f3f] p-4 text-xs'>
           <span>
             {menuData.title}
           </span>
-          <span className='cursor-pointer'>
+          <span className='cursor-pointer' onClick={handleClose}>
             <MenuFoldOutlined />
           </span>
         </div>
@@ -97,7 +113,7 @@ const Menu = () => {
             {menuData.showComponent}
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

@@ -9,7 +9,7 @@ const Header = () => {
   const canvasColor = useCanvasStore(state => state.canvasColor)
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
-  const canvasGrid = useCanvasStore(state => state.canvasGrid)
+  const showLine = useCanvasStore(state => state.showLine)
   const updateCanvas = useCanvasStore(state => state.updateCanvas)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -41,7 +41,7 @@ const Header = () => {
     form.setFieldsValue({
       canvasHeight,
       canvasWidth,
-      canvasGrid
+      showLine,
     })
     setColor(canvasColor)
   }
@@ -55,7 +55,7 @@ const Header = () => {
     isModalOpen && form.setFieldsValue({
       canvasHeight,
       canvasWidth,
-      canvasGrid
+      showLine,
     })
   }, [form, isModalOpen])
 
@@ -86,7 +86,7 @@ const Header = () => {
             <Form.Item label='颜色'>
               <ColorPicker value={color} onChange={handleColorChange} showText />
             </Form.Item>
-            <Form.Item label='背景网格' name='canvasGrid'>
+            <Form.Item label='辅助线' name='showLine'>
               <Switch></Switch>
             </Form.Item>
             <div className='w-full flex gap-4 justify-end'>

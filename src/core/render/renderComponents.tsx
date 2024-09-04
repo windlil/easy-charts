@@ -10,17 +10,12 @@ const Component:FC<{
   isActive: boolean
 }> = memo(({ component }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
-  let moveableEl: HTMLElement | null = null
   const componentRef = useRef<HTMLDivElement>(null)
 
   const handleClickComponent: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
     setCurComponent(component.id)
   }
-
-  useEffect(() => {
-    moveableEl = document.querySelector(`.moveable-control-box-${component.id}`)
-  }, [])
 
   return (
     <>
@@ -46,12 +41,13 @@ export const renderComponents = (components: ComponentItem[]) => {
   const curComponent = useComponentsStore(state => state.curComponent)
   const componentList = useComponentsStore(state => state.componentList)
   const updateComponent = useComponentsStore(state => state.updateComponent)
-  const { canvasWidth, canvasHeight } = useCanvasStore()
+  const { canvasWidth, canvasHeight, showLine } = useCanvasStore()
 
   const targetsRef = useRef<any>([])
   const [target, setTarget] = useState<HTMLDivElement | null>(null)
 
   const verticalGuidelines = useMemo(() => {
+    if (!showLine) return []
     const Lines = new Array(Math.floor(canvasWidth / 100)).fill(0)
 
     for (let i = 0; i < Lines.length; i++) {
@@ -64,6 +60,7 @@ export const renderComponents = (components: ComponentItem[]) => {
   }, [canvasWidth])
 
   const horizontalGuidelines = useMemo(() => {
+    if (!showLine) return []
     const Lines = new Array(Math.floor(canvasHeight / 100)).fill(0)
 
     for (let i = 0; i < Lines.length; i++) {
@@ -76,6 +73,7 @@ export const renderComponents = (components: ComponentItem[]) => {
   }, [canvasHeight])
 
   useEffect(() => {
+    if (!showLine) return
     const result = document.querySelectorAll('[data-componentid]')
     targetsRef.current = Array.from(result)
   }, [componentList])
@@ -96,7 +94,8 @@ export const renderComponents = (components: ComponentItem[]) => {
       )
     })}
     <Moveable
-      snappable={true}
+      className='moveable-control-box'
+      snappable={showLine}
       snapThreshold={2}
       verticalGuidelines={verticalGuidelines}
       horizontalGuidelines={horizontalGuidelines}

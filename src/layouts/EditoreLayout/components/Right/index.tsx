@@ -1,4 +1,4 @@
-import { Menu as AntdMenu, Form, Input } from 'antd'
+import { Menu as AntdMenu, Form, Input, Empty } from 'antd'
 import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
 import { useEffect, useState } from 'react'
@@ -6,14 +6,24 @@ import { renderSettingItem } from '@/core/render/renderSettingItem'
 import useComponentsStore from '@/stores/components'
 import { SettingMap } from '@/core/settingMap'
 import { nanoid } from 'nanoid'
+import { MenuUnfoldOutlined } from '@ant-design/icons'
+import useCanvasStore from '@/stores/canvas'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
   const updateComponent = useComponentsStore(state => state.updateComponent)
+  const updateCanvas = useCanvasStore(state => state.updateCanvas)
+  const showRight = useCanvasStore(state => state.showRight)
+
   const [currentSettingKey, setCurrentSettingKey] = useState('base')
   const [form] = Form.useForm()
 
   const handleClickSettingMenu = (items: any) => {
+    if (!showRight) {
+      updateCanvas({
+        showRight: true
+      })
+    }
     setCurrentSettingKey(items.key)
   }
 
@@ -21,6 +31,13 @@ const Right = () => {
     if (curComponent) {
       updateComponent(values, curComponent.id)
     }
+  }
+
+  const handleClose = () => {
+    updateCanvas({
+      showRight: false
+    })
+    handleClickSettingMenu({key: ''})
   }
 
   useEffect(() => {
@@ -31,12 +48,15 @@ const Right = () => {
   }, [curComponent, form])
 
   return (
-    <div className='w-full h-full flex justify-between'>
-      <div className='w-full'>
+    <div className='h-full flex justify-between'>
+      {showRight && <div className='w-60'>
+        <div className='flex justify-between w-full text-sm bg-[#040404] p-4 py-3 border-b border-[#363636] mb-4'>
+          <span>基础</span>
+          <span className='cursor-pointer' onClick={handleClose}>
+            <MenuUnfoldOutlined />
+          </span>
+        </div>
         {curComponent ? <>
-          <div className='w-full text-sm bg-[#040404] p-4 py-3 border-b border-[#363636] mb-4'>
-            基础
-          </div>
           <Form
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 16 }}
@@ -44,7 +64,7 @@ const Right = () => {
             form={form}
             onValuesChange={handlePropsChange}
           >
-            <Form.Item label={'ID'}>
+            <Form.Item label={'ID'} className='mb-4'>
               <Input disabled value={curComponent.id} className='text-xs'></Input>
             </Form.Item>
             {SettingMap[curComponent.name][currentSettingKey] && 
@@ -54,8 +74,8 @@ const Right = () => {
               </Form.Item>
             ))}
           </Form>
-        </> : null}
-      </div>
+        </> : <Empty className='mt-56' image={Empty.PRESENTED_IMAGE_SIMPLE} description={'暂未选中任何组件'} />}
+      </div>}
       <div className={styles.menuContainer}>
         <AntdMenu
           style={{ width: '100%', border: 0 }}

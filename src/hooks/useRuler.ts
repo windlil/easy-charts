@@ -15,7 +15,7 @@ const useRuler = (containerRef: RefObject<HTMLDivElement>, layoutRef: RefObject<
   const handleContainerMouseDown = (e: MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    if (e.button !== 2) return 
+    if (!e.ctrlKey) return 
     isDraging = true
     startX = e.pageX + containerRef.current!.scrollLeft
     startY = e.pageY + containerRef.current!.scrollTop
