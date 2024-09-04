@@ -1,10 +1,11 @@
 import { Menu as AntdMenu } from 'antd'
 import styles from './index.module.less'
-import { ChartList, chartMenuItems, mainMenuItems } from '@/global'
+import { ChartList, treeMenuItems, chartMenuItems, mainMenuItems } from '@/global'
 import { MenuFoldOutlined } from '@ant-design/icons'
 import ComponentList from './ComponentList'
 import { useMemo, useState } from 'react'
 import useCanvasStore from '@/stores/canvas'
+import TreeList from './treeList'
 
 const Menu = () => {
   const showLeft = useCanvasStore(state => state.showLeft)
@@ -25,12 +26,6 @@ const Menu = () => {
           subMenuItems: chartMenuItems,
           showComponent: <ComponentList componentArray={ChartList} curSelectedType={subMenuSelectedKey} />
         }
-      case 'equipment':
-        return {
-          title: '设备列表',
-          subMenuItems:[],
-          showComponent: <ComponentList componentArray={[]} curSelectedType={subMenuSelectedKey} />
-        }
       case 'word':
         return {
           title: '文字组件',
@@ -46,8 +41,8 @@ const Menu = () => {
       case 'tree':
         return {
           title: '图层',
-          subMenuItems: [],
-          showComponent: <ComponentList componentArray={[]} curSelectedType={subMenuSelectedKey} />
+          subMenuItems: treeMenuItems,
+          showComponent: <TreeList curSelectedType={subMenuSelectedKey} />
         }
       default:
         return {

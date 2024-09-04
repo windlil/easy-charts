@@ -2,7 +2,7 @@ import { Menu as AntdMenu, Form, Input, Empty } from 'antd'
 import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
 import { useEffect, useState } from 'react'
-import { renderSettingItem } from '@/core/render/renderSettingItem'
+import createSettingItem from '@/core/render/renderSettingItem'
 import useComponentsStore from '@/stores/components'
 import { SettingMap } from '@/core/settingMap'
 import { nanoid } from 'nanoid'
@@ -27,17 +27,17 @@ const Right = () => {
     setCurrentSettingKey(items.key)
   }
 
-  const handlePropsChange = (values: any) => {
-    if (curComponent) {
-      updateComponent(values, curComponent.id)
-    }
-  }
-
   const handleClose = () => {
     updateCanvas({
       showRight: false
     })
     handleClickSettingMenu({key: ''})
+  }
+
+  const handleBlur = () => {
+    if (curComponent) {
+      updateComponent(form.getFieldsValue(), curComponent.id)
+    }
   }
 
   useEffect(() => {
@@ -62,15 +62,15 @@ const Right = () => {
             wrapperCol={{ span: 16 }}
             size='small'
             form={form}
-            onValuesChange={handlePropsChange}
+            onBlur={handleBlur}
           >
-            <Form.Item label={'ID'} className='mb-4'>
-              <Input disabled value={curComponent.id} className='text-xs'></Input>
-            </Form.Item>
+            {currentSettingKey === 'base' && <Form.Item label={'ID'} className='mb-4'>
+              <Input disabled value={curComponent.id}></Input>
+            </Form.Item>}
             {SettingMap[curComponent.name][currentSettingKey] && 
             SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
               <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
-                {renderSettingItem(item.type)}
+                {createSettingItem(item.type)}
               </Form.Item>
             ))}
           </Form>

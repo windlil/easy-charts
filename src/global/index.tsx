@@ -6,3 +6,4 @@ export interface subMenuItem {
 
 export * from './main-menu'
 export * from './chart'
+export * from './tree'

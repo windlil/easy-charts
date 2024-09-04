@@ -30,11 +30,6 @@ export const mainMenuItems: MenuItem[] = [
     icon: <PieChartOutlined />
   },
   {
-    key: 'equipment',
-    label: '设备',
-    icon: <HeatMapOutlined />
-  },
-  {
     key: 'word',
     label: '文字',
     icon: <FontSizeOutlined />

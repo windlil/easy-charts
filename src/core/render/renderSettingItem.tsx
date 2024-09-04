@@ -1,10 +1,13 @@
 import { Input, InputNumber } from 'antd'
 
-export const renderSettingItem = (type: string, options?: any) => {
-  switch(type){
+
+const createSettingItem = (type: string) => {
+  switch(type) {
     case 'input':
-      return <Input></Input>
+      return <Input />
     case 'number':
-      return <InputNumber></InputNumber>
+      return <InputNumber/>
   }
 }
+
+export default createSettingItem

@@ -14,6 +14,7 @@ const data = [
 
 export const BaseLineDefaultConfig = {
   name: '基础折线图',
+  componentType: 'chart',
   data,
   xField: 'year',
   yField: 'value',

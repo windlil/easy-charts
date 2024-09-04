@@ -14,6 +14,7 @@ const data = [
 
 export const BaseColumnConfig = {
   name: '基础柱状图',
+  componentType: 'chart',
   data,
   xField: 'name',
   yField: 'value',
