@@ -3,6 +3,7 @@ import useComponentsStore from '@/stores/components'
 import { ConfigMap } from '@/core/defaultConfig/ConfigMap'
 import { RefObject, useCallback } from 'react'
 import useCanvasStore from '@/stores/canvas'
+import { nanoid } from 'nanoid'
 
 const positionToFixed = (position: number) => {
   return Number(position.toFixed(0))
@@ -22,7 +23,7 @@ const useCanvasDrop = (canvasRef: RefObject<HTMLDivElement>) => {
       name: string,
       config: any
     } = {
-      id: String(Math.random()),
+      id: nanoid(12),
       name: item.name,
       config: {
         ...ConfigMap[item.name],

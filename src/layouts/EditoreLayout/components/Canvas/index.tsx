@@ -9,6 +9,8 @@ import useCanvasDrop from '@/hooks/useCanvasDrop'
 
 const Canvas = () => {
   const componentList = useComponentsStore(state => state.componentList)
+  const setCurComponent = useComponentsStore(state => state.setCurComponent)
+
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
   const canvasColor = useCanvasStore(state => state.canvasColor)
@@ -21,7 +23,6 @@ const Canvas = () => {
 
   const { containerMouseDown, handleScale, handlePos, zoom, unit, posX, posY } = useRuler(containerRef, layoutRef, canvasRef)
   const { drop } = useCanvasDrop(canvasRef)
-
 
   /**
    * Canvas container scroll event handler 
@@ -38,6 +39,9 @@ const Canvas = () => {
       verticalRulerRef.current?.resize()
       horizontalRulerRef.current?.resize()
     })
+    window.addEventListener('contextmenu',function(e){
+			e.preventDefault()
+		})
 
     return () => {
       remove1()
@@ -88,11 +92,12 @@ const Canvas = () => {
         >
           <div 
             ref={layoutRef}
-            className={styles.contentLayout}
+            className={`${styles.contentLayout}`}
             style={{
             width: `${canvasWidth * 2}px`,
             height: `${canvasHeight * 2}px`
             }}
+            onClick={() => setCurComponent('')}
           >
             <div
               ref={canvasRef}
@@ -101,7 +106,7 @@ const Canvas = () => {
                 height: `${canvasHeight}px`,
                 backgroundColor: canvasColor
               }}
-              className={styles.contentCanvas}
+              className={`${styles.contentCanvas}`}
             >
               <div ref={drop} className='absolute w-full h-full'>
                 {renderComponents(componentList)}

@@ -1,10 +1,11 @@
-import { Menu as AntdMenu, Form } from 'antd'
+import { Menu as AntdMenu, Form, Input } from 'antd'
 import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
 import { useEffect, useState } from 'react'
 import { renderSettingItem } from '@/core/render/renderSettingItem'
 import useComponentsStore from '@/stores/components'
 import { SettingMap } from '@/core/settingMap'
+import { nanoid } from 'nanoid'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
@@ -17,7 +18,9 @@ const Right = () => {
   }
 
   const handlePropsChange = (values: any) => {
-    updateComponent(values)
+    if (curComponent) {
+      updateComponent(values, curComponent.id)
+    }
   }
 
   useEffect(() => {
@@ -41,9 +44,12 @@ const Right = () => {
             form={form}
             onValuesChange={handlePropsChange}
           >
+            <Form.Item label={'ID'}>
+              <Input disabled value={curComponent.id} className='text-xs'></Input>
+            </Form.Item>
             {SettingMap[curComponent.name][currentSettingKey] && 
             SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
-              <Form.Item name={item.name} className='mb-4' label={item.label} key={Math.random()}>
+              <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
                 {renderSettingItem(item.type)}
               </Form.Item>
             ))}

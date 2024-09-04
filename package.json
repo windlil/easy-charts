@@ -17,10 +17,12 @@
     "antd": "^5.20.3",
     "immer": "^10.1.1",
     "lucide-react": "^0.436.0",
+    "nanoid": "^5.0.7",
     "react": "^18.3.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.3.1",
+    "react-moveable": "^0.56.0",
     "react-router-dom": "^6.26.1",
     "zustand": "^4.5.5"
   },
