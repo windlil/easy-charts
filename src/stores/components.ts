@@ -13,7 +13,7 @@ interface Store {
   curComponent: ComponentItem | null
   addComponent: (component: ComponentItem) => void
   setCurComponent: (id: string) => void
-  updateComponent: (config: any) => void
+  updateComponent: (config: any, id: string) => void
 }
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
@@ -33,14 +33,15 @@ const useComponentsStore = create<Store>()(devtools(immer((set) => ({
       state.curComponent = getCurComponentById(state.componentList, id)
     })
   },
-  updateComponent(config) {
+  updateComponent(config, id) {
     set(state => {
       if (!state.curComponent) return
-      const curComponent = getCurComponentById(state.componentList, state.curComponent.id)!
+      const curComponent = getCurComponentById(state.componentList, id)!
       curComponent.config = {
         ...curComponent?.config,
         ...config,
       }
+      state.curComponent = curComponent
     })
   }
 }))))
