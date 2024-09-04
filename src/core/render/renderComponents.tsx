@@ -1,8 +1,9 @@
-import { createElement, FC, memo, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { createElement, FC, memo, MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react'
 import { componentMap } from '../componentMap'
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { nanoid } from 'nanoid'
 import Moveable from 'react-moveable'
+import useCanvasStore from '@/stores/canvas'
 
 const Component:FC<{
   component: ComponentItem
@@ -43,13 +44,49 @@ const Component:FC<{
 
 export const renderComponents = (components: ComponentItem[]) => {
   const curComponent = useComponentsStore(state => state.curComponent)
+  const componentList = useComponentsStore(state => state.componentList)
   const updateComponent = useComponentsStore(state => state.updateComponent)
+  const { canvasWidth, canvasHeight } = useCanvasStore()
 
+  const targetsRef = useRef<any>([])
   const [target, setTarget] = useState<HTMLDivElement | null>(null)
 
+  const verticalGuidelines = useMemo(() => {
+    const Lines = new Array(Math.floor(canvasWidth / 100)).fill(0)
+
+    for (let i = 0; i < Lines.length; i++) {
+      Lines[i] = i * 100
+      if (i === Lines.length - 1) {
+        Lines[i] = canvasWidth
+      }
+    }
+    return Lines
+  }, [canvasWidth])
+
+  const horizontalGuidelines = useMemo(() => {
+    const Lines = new Array(Math.floor(canvasHeight / 100)).fill(0)
+
+    for (let i = 0; i < Lines.length; i++) {
+      Lines[i] = i * 100
+      if (i === Lines.length - 1) {
+        Lines[i] = canvasHeight
+      }
+    }
+    return Lines
+  }, [canvasHeight])
+
   useEffect(() => {
-    const el = document.querySelector(`[data-componentid="${curComponent?.id}"]`) as HTMLDivElement
+    const result = document.querySelectorAll('[data-componentid]')
+    targetsRef.current = Array.from(result)
+  }, [componentList])
+
+  useEffect(() => {
+    const el = document.querySelector(`[data-componentid='${curComponent?.id}']`) as HTMLDivElement
     setTarget(el)
+  }, [curComponent])
+
+  useEffect(() => {
+
   }, [curComponent])
   
   return <>
@@ -59,6 +96,14 @@ export const renderComponents = (components: ComponentItem[]) => {
       )
     })}
     <Moveable
+      snappable={true}
+      snapThreshold={2}
+      verticalGuidelines={verticalGuidelines}
+      horizontalGuidelines={horizontalGuidelines}
+      elementGuidelines={targetsRef.current}
+      elementSnapDirections={{'top':true,'right':true,'bottom':true,'left':true,'center': true, 'middle': true}}
+      snapDirections={{'top':true,'right':true,'bottom':true,'left':true,'center': true, 'middle': true}}
+      isDisplaySnapDigit={true}
       target={target}
       origin={false}
       edge={false}

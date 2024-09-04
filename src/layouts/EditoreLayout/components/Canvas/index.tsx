@@ -106,7 +106,7 @@ const Canvas = () => {
                 height: `${canvasHeight}px`,
                 backgroundColor: canvasColor
               }}
-              className={`${styles.contentCanvas}`}
+              className={`${styles.contentCanvas} canvasContainer`}
             >
               <div ref={drop} className='absolute w-full h-full'>
                 {renderComponents(componentList)}
