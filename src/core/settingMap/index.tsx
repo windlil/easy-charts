@@ -2,6 +2,8 @@ import { ComponentsName } from '@/types/components'
 
 const enum SettingType {
   Base = 'base',
+  Data = 'data',
+  DataMap = 'dataMap'
 }
 
 const SettingBase = [
@@ -37,11 +39,28 @@ const SettingBase = [
   },
 ]
 
+const BaseSettingData= [
+  {
+    name: 'x',
+    label: 'x轴',
+    type: 'select',
+    key: 'xField',
+  },
+  {
+    name: 'y',
+    label: 'y轴',
+    type: 'select',
+    key: 'yField'
+  }
+]
+
 export const SettingMap: Record<string, any> = {
   [ComponentsName.BaseColumn]: {
     [SettingType.Base]: SettingBase,
+    [SettingType.DataMap]: BaseSettingData
   },
   [ComponentsName.BaseLine]:{
     [SettingType.Base]: SettingBase,
+    [SettingType.DataMap]: BaseSettingData
   }
 }

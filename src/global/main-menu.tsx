@@ -60,7 +60,7 @@ export const settingAttributeMenuList: MenuItem[] = [
     key: 'data',
   },
   {
-    label: '主题',
-    key: 'theme'
-  }
+    label: '映射',
+    key: 'dataMap',
+  },
 ]
