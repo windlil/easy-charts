@@ -11,8 +11,5 @@ export default defineConfig({
     entry: {
       index: './src/main.tsx'
     },
-    alias: {
-      '@': './src'
-    }
   }
 })
