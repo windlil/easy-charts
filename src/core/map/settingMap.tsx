@@ -41,16 +41,16 @@ const SettingBase = [
 
 const BaseSettingData= [
   {
-    name: 'x',
+    name: 'xField',
     label: 'x轴',
     type: 'select',
-    key: 'xField',
+    default: 'name',
   },
   {
-    name: 'y',
+    name: 'yField',
     label: 'y轴',
     type: 'select',
-    key: 'yField'
+    default: 'value',
   }
 ]
 

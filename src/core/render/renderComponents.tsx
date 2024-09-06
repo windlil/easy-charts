@@ -1,5 +1,5 @@
 import { createElement, FC, memo, MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react'
-import { componentMap } from '../componentMap'
+import { componentMap } from '../map/componentMap'
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { nanoid } from 'nanoid'
 import Moveable from 'react-moveable'
