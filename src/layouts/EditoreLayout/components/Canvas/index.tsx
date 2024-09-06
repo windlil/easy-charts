@@ -6,10 +6,12 @@ import styles from './index.module.less'
 import useRuler from '@/hooks/useRuler'
 import useCanvasStore from '@/stores/canvas'
 import useCanvasDrop from '@/hooks/useCanvasDrop'
+import ToolBar from './tool-bar'
 
 const Canvas = () => {
   const componentList = useComponentsStore(state => state.componentList)
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
+  const curComponent = useComponentsStore(state => state.curComponent)
 
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
@@ -50,72 +52,77 @@ const Canvas = () => {
   }, [])
 
   return (
-    <div className='flex h-full w-full border-l border-[#363636]'>
-      <div className='w-[25px] h-full'>
-        <div className='bg-[#0f1011] h-[25px] text-xs text-[#6b6b6b]'>
-          px
-        </div>
-        <Ruler
-          ref={verticalRulerRef}
-          type='vertical'
-          lineColor={'#363636'}
-          textColor={'rgb(156,163,175, 0.8)'}
-          backgroundColor={'#0f1011'}
-          negativeRuler={true}
-          segment={2}
-          textOffset={[10, 0]}
-          scrollPos={posY}
-          zoom={zoom}
-          unit={unit}
-        />
+    <>
+      <div className='bg-[#0f1011] h-7 w-full border-l border-b border-[#363636]'>
+        <ToolBar curComponent={curComponent} />
       </div>
-      <div className='h-full flex-1'>
-        <div className='h-[25px]'>
+      <div className='flex h-full w-full border-l border-[#363636]'>
+        <div className='w-[25px] h-full'>
+          <div className='bg-[#0f1011] h-[25px] text-xs text-[#6b6b6b]'>
+            px
+          </div>
           <Ruler
-            ref={horizontalRulerRef}
-            type='horizontal'
+            ref={verticalRulerRef}
+            type='vertical'
             lineColor={'#363636'}
             textColor={'rgb(156,163,175, 0.8)'}
             backgroundColor={'#0f1011'}
             negativeRuler={true}
-            segment={3}
-            textOffset={[0, 10]}
-            scrollPos={posX}
+            segment={2}
+            textOffset={[10, 0]}
+            scrollPos={posY}
             zoom={zoom}
             unit={unit}
           />
         </div>
-        <div
-          ref={containerRef}
-          onScroll={handleContainerScroll}
-          className={styles.contentContainer}
-        >
-          <div 
-            ref={layoutRef}
-            className={`${styles.contentLayout}`}
-            style={{
-            width: `${canvasWidth * 2}px`,
-            height: `${canvasHeight * 2}px`
-            }}
-            onClick={() => setCurComponent('')}
+        <div className='h-full flex-1'>
+          <div className='h-[25px]'>
+            <Ruler
+              ref={horizontalRulerRef}
+              type='horizontal'
+              lineColor={'#363636'}
+              textColor={'rgb(156,163,175, 0.8)'}
+              backgroundColor={'#0f1011'}
+              negativeRuler={true}
+              segment={3}
+              textOffset={[0, 10]}
+              scrollPos={posX}
+              zoom={zoom}
+              unit={unit}
+            />
+          </div>
+          <div
+            ref={containerRef}
+            onScroll={handleContainerScroll}
+            className={styles.contentContainer}
           >
-            <div
-              ref={canvasRef}
+            <div 
+              ref={layoutRef}
+              className={`${styles.contentLayout}`}
               style={{
-                width: `${canvasWidth}px`,
-                height: `${canvasHeight}px`,
-                backgroundColor: canvasColor
+              width: `${canvasWidth * 2}px`,
+              height: `${canvasHeight * 2}px`
               }}
-              className={`${styles.contentCanvas} canvasContainer`}
+              onClick={() => setCurComponent('')}
             >
-              <div ref={drop} className='absolute w-full h-full'>
-                {renderComponents(componentList)}
+              <div
+                ref={canvasRef}
+                style={{
+                  width: `${canvasWidth}px`,
+                  height: `${canvasHeight}px`,
+                  backgroundColor: canvasColor
+                }}
+                className={`${styles.contentCanvas} canvasContainer`}
+              >
+                <div ref={drop} className='absolute w-full h-full'>
+                  {renderComponents(componentList)}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

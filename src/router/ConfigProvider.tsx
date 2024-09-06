@@ -6,9 +6,7 @@ const studioDarkAlgorithm: MappingAlgorithm = (seedToken, mapToken) => {
   const baseToken = theme.darkAlgorithm(seedToken, mapToken)
   return {
       ...baseToken,
-      colorBgLayout: '#20252b', // Layout 背景色
-      colorBgContainer: '#282c34', // 组件容器背景色
-      colorBgElevated: '#32363e', // 悬浮容器背景色
+      colorBgContainer: 'transparent', // 组件容器背景色
   }
 }
 

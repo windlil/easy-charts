@@ -81,7 +81,7 @@ export const renderComponents = (components: ComponentItem[]) => {
   useEffect(() => {
     const el = document.querySelector(`[data-componentid='${curComponent?.id}']`) as HTMLDivElement
     setTarget(el)
-  }, [curComponent])
+  }, [curComponent, componentList.length])
 
   useEffect(() => {
 

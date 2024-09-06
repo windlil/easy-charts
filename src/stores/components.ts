@@ -14,6 +14,7 @@ interface Store {
   addComponent: (component: ComponentItem) => void
   setCurComponent: (id: string) => void
   updateComponent: (config: any, id: string) => void
+  deleteComponent: () => void
 }
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
@@ -42,6 +43,14 @@ const useComponentsStore = create<Store>()(devtools(immer((set) => ({
         ...config,
       }
       state.curComponent = curComponent
+    })
+  },
+  deleteComponent() {
+    set((state) => {
+      const index = state.componentList.findIndex(component => {
+        component.id === state.curComponent?.id
+      })
+      state.componentList.splice(index, 1)
     })
   }
 }))))
