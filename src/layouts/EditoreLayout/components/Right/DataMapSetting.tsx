@@ -50,7 +50,7 @@ const DataMapSetting: FC<{
         form={form}
         labelAlign='left'
       >
-        {SettingMap[curComponent.name]['dataMap'] && 
+        {SettingMap?.[curComponent.name]?.['dataMap'] && 
         SettingMap[curComponent.name]['dataMap'].map((item: any) => (
           <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
             {renderDataMapSettingItem(item.type, options)}

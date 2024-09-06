@@ -1,6 +1,6 @@
 import { useDrop } from 'react-dnd'
 import useComponentsStore from '@/stores/components'
-import { ConfigMap } from '@/core/defaultConfig/ConfigMap'
+import { ConfigMap } from '@/core/map/configMap'
 import { RefObject, useCallback } from 'react'
 import useCanvasStore from '@/stores/canvas'
 import { nanoid } from 'nanoid'

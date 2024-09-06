@@ -5,5 +5,6 @@ export const CommonConfig = {
   width: 300,
   height: 300,
   animate: false,
-  dataSource: 'static'
+  dataSource: 'static',
+  theme: 'classicDark',
 }

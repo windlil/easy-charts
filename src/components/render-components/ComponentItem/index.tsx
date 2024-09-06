@@ -14,11 +14,11 @@ const ComponentItem: FC<{
   }))
 
   return (
-    <div ref={drag} className='flex flex-col justify-center items-center w-full h-[110px] bg-[#1b1b1b] mb-4 text-xs'>
+    <div ref={drag} className='flex flex-col justify-center items-center w-full h-[120px] bg-[#1b1b1b] mb-4 text-xs'>
       <span className='w-full p-1 text-gray-400'>
         {name}
       </span>
-      <div className='h-[86px]'>
+      <div className='h-[95px] w-[90%]'>
         <img draggable={false} src={img} className='w-full h-full' />
       </div>
     </div>

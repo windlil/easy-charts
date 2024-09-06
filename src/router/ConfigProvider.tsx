@@ -23,19 +23,11 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
               Menu: {
                   itemBg: 'none',
                   itemColor: '#bfbfbf',
-                  itemSelectedColor: '#2196F3',
                   itemSelectedBg: 'none',
                   itemBorderRadius: 2,
               },
               Form: {
                 labelColor: 'rgb(156,163,175, 0.8)',
-              },
-              Table: {
-                  borderRadius: 2,
-                  headerBorderRadius: 2,
-                  cellPaddingBlock: 12,
-                  headerBg: '#343434',
-                  colorBgContainer: '#252525',
               },
               Input: {
                   borderRadius: 2,
@@ -44,12 +36,7 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   borderRadiusSM: 2,
                   colorBgContainer: '#1a1a1a',
                   colorText: 'rgb(156,163,175, 0.9)',
-              },
-              Button: {
-                  borderRadius: 2,
-                  borderRadiusLG: 2,
-                  borderRadiusXS: 2,
-                  borderRadiusSM: 2,
+                  colorBorder: '#444444'
               },
               Select: {
                   borderRadius: 2,
@@ -59,7 +46,6 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   selectorBg: '#252525',
                   optionSelectedBg: '#29323f'
               },
-              TreeSelect: {},
               InputNumber: {
                   borderRadius: 2,
                   borderRadiusLG: 2,
@@ -67,27 +53,12 @@ const _ConfigProvider: FC<{children: ReactNode}> = memo(({children}) => {
                   borderRadiusSM: 2,
                   colorBgContainer: '#1a1a1a',
                   colorText: 'rgb(156,163,175, 0.9)',
-              },
-              Slider: {
-                  trackBg: '#0086ce',
-                  trackHoverBg: '#1EB1FFFF',
-                  dotBorderColor: '#7fabff',
-                  handleColor: '#3e80ff',
-                  railSize: 3,
-              },
-              Collapse: {
-                  borderRadius: 2,
-                  borderRadiusLG: 2,
-                  borderRadiusXS: 2,
-                  borderRadiusSM: 2,
+                  colorBorder: '#444444'
               },
               Modal: {
-                  borderRadiusLG: 4,
-                  headerBg: '#1f1f1f',
-                  colorBgContainer: '#1f1f1f',
-                  colorBgElevated: '#1f1f1f',
-                  paddingMD: 15,
-                  paddingContentHorizontalLG: 15
+                  headerBg: '#222323',
+                  colorBgElevated: '#222323',
+                  colorBgContainer: '#222323',
               }
 
           }

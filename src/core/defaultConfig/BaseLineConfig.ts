@@ -1,4 +1,4 @@
-import { CommonConfig } from './CommonConfig'
+import { CommonConfig } from './common/CommonConfig'
 
 const data = [
   { year: '1991', value: 3 },
@@ -14,18 +14,10 @@ const data = [
 
 export const BaseLineDefaultConfig = {
   name: '基础折线图',
+  // 标注组件类型
   componentType: 'chart',
   data,
   xField: 'year',
   yField: 'value',
-  interaction: {
-    tooltip: {
-      marker: false,
-    },
-  },
-  style: {
-    lineWidth: 2,
-  },
-  theme: 'classicDark',
   ...CommonConfig
 }

@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
+import { FC, memo } from 'react'
 import { Column } from '@ant-design/charts'
 
-const BaseColumn: React.FC<{
+const BaseColumn: FC<{
   config: any
 }> = memo(({ config }) => {
   return <Column {...config} />

@@ -1,9 +1,11 @@
-import { ComponentsName } from '@/types/components'
+import { ComponentsName } from '@/core/map/nameMap'
 
 const enum SettingType {
   Base = 'base',
   Data = 'data',
-  DataMap = 'dataMap'
+  DataMap = 'dataMap',
+  
+  action = 'action',
 }
 
 const SettingBase = [
@@ -54,13 +56,36 @@ const BaseSettingData= [
   }
 ]
 
+const PieDataMapSetting = [
+  {
+    name: 'colorField',
+    label: '内容',
+    type: 'select',
+    default: 'type',
+  },
+  {
+    name: 'angleField',
+    label: '角度',
+    type: 'select',
+    default: 'value',
+  },
+]
+
 export const SettingMap: Record<string, any> = {
   [ComponentsName.BaseColumn]: {
+    [SettingType.Base]: SettingBase,
+    [SettingType.DataMap]: BaseSettingData
+  },
+  [ComponentsName.BaseArea]: {
     [SettingType.Base]: SettingBase,
     [SettingType.DataMap]: BaseSettingData
   },
   [ComponentsName.BaseLine]:{
     [SettingType.Base]: SettingBase,
     [SettingType.DataMap]: BaseSettingData
+  },
+  [ComponentsName.BasePie]: {
+    [SettingType.Base]: SettingBase,
+    [SettingType.DataMap]: PieDataMapSetting
   }
 }

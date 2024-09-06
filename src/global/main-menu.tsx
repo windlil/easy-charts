@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import {
   PieChartOutlined, 
   FontSizeOutlined, 
-  HeatMapOutlined,
   AppstoreAddOutlined,
   DatabaseOutlined
 } from '@ant-design/icons'
@@ -21,7 +20,7 @@ export interface ComponentItem {
 }
 
 
-type ComponentType = 'line' | 'pie' | 'column' | 'dashboard' | 'all'
+type ComponentType = 'line' | 'pie' | 'column' | 'area' | 'all'
 
 export const mainMenuItems: MenuItem[] = [
   {
@@ -48,12 +47,8 @@ export const mainMenuItems: MenuItem[] = [
 
 export const settingAttributeMenuList: MenuItem[] = [
   {
-    label: '基础',
-    key: 'base'
-  },
-  {
     label: '样式',
-    key: 'style',
+    key: 'base'
   },
   {
     label: '数据',
@@ -62,5 +57,9 @@ export const settingAttributeMenuList: MenuItem[] = [
   {
     label: '映射',
     key: 'dataMap',
+  },
+  {
+    label: '交互',
+    key: 'action',
   },
 ]

@@ -11,16 +11,16 @@ export const chartMenuItems: subMenuItem[] = [
     label: '折线图',
   },
   {
+    key: 'area',
+    label: '面积图',
+  },
+  {
     key: 'column',
     label: '柱形图',
   },
   {
     key: 'pie',
     label: '饼形图',
-  },
-  {
-    key: 'dashboard',
-    label: '仪表盘',
   },
 ]
 
@@ -29,13 +29,19 @@ export const ChartList: ComponentItem[] = [
     name: '折线图',
     key: 'BaseLine',
     type: 'line',
-    img: 'https://xiaopujun.github.io/light-chaser-app/assets/base-area-CtNnIUUi.png'
+    img: '/chart-img/BaseLine.png'
+  },
+  {
+    name: '面积图',
+    key: 'BaseArea',
+    type: 'area',
+    img: '/chart-img/BaseArea.png'
   },
   {
     name: '饼图',
     key: 'BasePie',
     type: 'pie',
-    img: 'https://xiaopujun.github.io/light-chaser-app/assets/pie-CRAHHn6h.png',
+    img: '/chart-img/BasePie.png'
   },
   {
     name: '柱状图',
@@ -43,10 +49,4 @@ export const ChartList: ComponentItem[] = [
     type: 'column',
     img: 'https://xiaopujun.github.io/light-chaser-app/assets/base-column-DBv19rZt.png',
   },
-  {
-    name: '仪表盘',
-    key: 'BaseDashboard',
-    type: 'dashboard',
-    img: 'https://xiaopujun.github.io/light-chaser-app/assets/radar-B2krN29c.png'
-  }
 ]
