@@ -1,6 +1,6 @@
-<div>
+<h1>
   Easy Charts
-</div>
+</h1>
 <p>Free, easy and fast to create visualization of large screens🎉</P>
 
 Easy Charts is a visual large-screen editor based on React to help you quickly develop large-screen display effects.
