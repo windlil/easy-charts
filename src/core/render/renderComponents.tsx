@@ -37,7 +37,7 @@ const Component:FC<{
   )
 })
 
-export const renderComponents = (components: ComponentItem[]) => {
+export const renderComponents = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
   const componentList = useComponentsStore(state => state.componentList)
   const updateComponent = useComponentsStore(state => state.updateComponent)
@@ -80,15 +80,12 @@ export const renderComponents = (components: ComponentItem[]) => {
 
   useEffect(() => {
     const el = document.querySelector(`[data-componentid='${curComponent?.id}']`) as HTMLDivElement
+    console.log('刷新')
     setTarget(el)
-  }, [curComponent, componentList.length])
-
-  useEffect(() => {
-
-  }, [curComponent])
+  }, [curComponent, componentList])
   
   return <>
-    {components.map((component) => {
+    {componentList?.map((component) => {
       return (
         <Component component={component} key={component.id} isActive={curComponent?.id === component.id} />
       )

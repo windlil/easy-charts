@@ -1,7 +1,7 @@
 import { Menu as AntdMenu, Form, Input, Empty } from 'antd'
 import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import createSettingItem from '@/core/render/renderSettingItem'
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { SettingMap } from '@/core/map/settingMap'

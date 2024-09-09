@@ -36,7 +36,7 @@ const useCanvasDrop = (canvasRef: RefObject<HTMLDivElement>) => {
 
   const [, drop] = useDrop(() => ({
     accept: 'component',
-    drop: handleDrop
+    drop: handleDrop,
   }), [handleDrop, scale])
 
   return {
