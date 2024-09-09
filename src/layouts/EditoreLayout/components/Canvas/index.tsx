@@ -65,7 +65,7 @@ const Canvas = () => {
       </div>
       <div className='flex h-full w-full border-l border-[#363636]'>
         <div className='w-[25px] h-full'>
-          <div className='bg-[#0f1011] h-[25px] text-xs text-[#6b6b6b]'>
+          <div className='bg-[#0f1011] h-[25px] text-xs text-[#6b6b6b] select-none'>
             px
           </div>
           <Ruler

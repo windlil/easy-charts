@@ -1,13 +1,17 @@
-# Easy Charts
-大屏可视化拖拽编辑器，基于React18 + Rsbuild + Zustand + Typescript搭建。
+<div>
+  Easy Charts
+</div>
+<p>Free, easy and fast to create visualization of large screens🎉</P>
 
-参照常见的低代码平台设计，左侧物料图表区，中间为画布区域，右侧为属性设置区。
+Easy Charts is a visual large-screen editor based on React to help you quickly develop large-screen display effects.
 
-## 快速开始
-```bash
-1、fork 或 clone 本项目至本地
+## Getting Started
+```
+git clone git@github.com:windlil/easy-charts.git
 
-2、pnpm i
+cd easy-charts
 
-3、pnpm dev
+pnpm i
+
+pnpm dev
 ```
