@@ -10,7 +10,7 @@ const ToolBar:FC<{
   const redo = useComponentsStore(state => state.redo)
   const undo = useComponentsStore(state => state.undo)
   const componentList = useComponentsStore(state => state.componentList)
-  const curLinkNode = useComponentsStore(state => state.curLinkNode)
+  const curHistoryAtEnd = useComponentsStore(state => state.curHistoryAtEnd)
 
   const undoDisabledStyle: React.CSSProperties = useMemo(() => {
     if (componentList.length === 0) {
@@ -27,8 +27,8 @@ const ToolBar:FC<{
   }, [componentList])
 
   const redoDisabledStyle: React.CSSProperties = useMemo(() => {
-    console.log(curLinkNode)
-    if (!curLinkNode?.next) {
+    console.log(curHistoryAtEnd)
+    if (curHistoryAtEnd) {
       return {
         cursor: 'not-allowed',
         color: '#3f3f46'
@@ -39,7 +39,7 @@ const ToolBar:FC<{
         color: ''
       }
     }
-  }, [componentList, curLinkNode])
+  }, [componentList])
 
   const handleDeleteCurrent = () => {
     if (!curComponent) return

@@ -1,5 +1,5 @@
 import { renderComponents } from '@/core/render/renderComponents'
-import useComponentsStore from '@/stores/components'
+import useComponentsStore, { LinkNode } from '@/stores/components'
 import Ruler from '@scena/react-ruler'
 import { useEffect, useRef } from 'react'
 import styles from './index.module.less'
@@ -7,11 +7,12 @@ import useRuler from '@/hooks/useRuler'
 import useCanvasStore from '@/stores/canvas'
 import useCanvasDrop from '@/hooks/useCanvasDrop'
 import ToolBar from './tool-bar'
+import { ComponentDbStore, db } from '@/db'
 
 const Canvas = () => {
-  const componentList = useComponentsStore(state => state.componentList)
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
   const curComponent = useComponentsStore(state => state.curComponent)
+  const initStore = useComponentsStore(state => state.initStore)
 
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
@@ -26,12 +27,18 @@ const Canvas = () => {
   const { containerMouseDown, handleScale, handlePos, zoom, unit, posX, posY } = useRuler(containerRef, layoutRef, canvasRef)
   const { drop } = useCanvasDrop(canvasRef)
 
-  /**
-   * Canvas container scroll event handler 
-   */
   const handleContainerScroll = () => {
     handlePos()
   }
+
+  const initDb = async() => {
+    const store: ComponentDbStore | undefined = await db.components.orderBy('timestamp').reverse().first()
+    initStore(store?.componentStore.componentList ?? [], store?.componentStore?.curLinkNode ?? new LinkNode())
+  }
+
+  useEffect(() => {
+    initDb()
+  },[])
 
   useEffect(() => {
     handlePos()
@@ -115,7 +122,7 @@ const Canvas = () => {
                 className={`${styles.contentCanvas} canvasContainer`}
               >
                 <div ref={drop} className='absolute w-full h-full'>
-                  {renderComponents(componentList)}
+                  {renderComponents()}
                 </div>
               </div>
             </div>

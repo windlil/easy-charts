@@ -26,7 +26,6 @@ const Component:FC<{
         style={{
           transform: `translate(${component.config.x}px,${component.config.y}px)`,
           zIndex: component.config.z,
-          // borderColor: isActive ? '#2196F3' : ''
         }}
         key={nanoid()}
         onClick={handleClickComponent}
@@ -42,6 +41,7 @@ export const renderComponents = () => {
   const componentList = useComponentsStore(state => state.componentList)
   const updateComponent = useComponentsStore(state => state.updateComponent)
   const { canvasWidth, canvasHeight, showLine } = useCanvasStore()
+
 
   const targetsRef = useRef<any>([])
   const [target, setTarget] = useState<HTMLDivElement | null>(null)
@@ -78,9 +78,9 @@ export const renderComponents = () => {
     targetsRef.current = Array.from(result)
   }, [componentList])
 
+
   useEffect(() => {
     const el = document.querySelector(`[data-componentid='${curComponent?.id}']`) as HTMLDivElement
-    console.log('刷新')
     setTarget(el)
   }, [curComponent, componentList])
   

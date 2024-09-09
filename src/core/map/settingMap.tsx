@@ -1,10 +1,10 @@
 import { ComponentsName } from '@/core/map/nameMap'
+import { BaseColumnSettingConfig } from '../settingConfig/baseColumn'
 
 const enum SettingType {
   Base = 'base',
   Data = 'data',
   DataMap = 'dataMap',
-  
   action = 'action',
 }
 
@@ -41,7 +41,7 @@ const SettingBase = [
   },
 ]
 
-const BaseSettingData= [
+const BaseDataMapSetting= [
   {
     name: 'xField',
     label: 'x轴',
@@ -73,16 +73,16 @@ const PieDataMapSetting = [
 
 export const SettingMap: Record<string, any> = {
   [ComponentsName.BaseColumn]: {
-    [SettingType.Base]: SettingBase,
-    [SettingType.DataMap]: BaseSettingData
+    [SettingType.Base]: [...SettingBase, BaseColumnSettingConfig],
+    [SettingType.DataMap]: BaseDataMapSetting
   },
   [ComponentsName.BaseArea]: {
     [SettingType.Base]: SettingBase,
-    [SettingType.DataMap]: BaseSettingData
+    [SettingType.DataMap]: BaseDataMapSetting
   },
   [ComponentsName.BaseLine]:{
     [SettingType.Base]: SettingBase,
-    [SettingType.DataMap]: BaseSettingData
+    [SettingType.DataMap]: BaseDataMapSetting
   },
   [ComponentsName.BasePie]: {
     [SettingType.Base]: SettingBase,

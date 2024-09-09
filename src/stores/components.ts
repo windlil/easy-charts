@@ -1,3 +1,5 @@
+import { db } from '@/db'
+import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -8,7 +10,7 @@ export type ComponentItem = {
   config: any
 }
 
-class LinkNode {
+export class LinkNode {
   pre: any
   next: any
   componentList: any
@@ -22,28 +24,45 @@ class LinkNode {
 let currentNode = new LinkNode()
 
 interface Store {
+  curHistoryAtEnd: boolean
   componentList: ComponentItem[]
   curComponent: ComponentItem | null
-  curLinkNode: LinkNode
   addComponent: (component: ComponentItem) => void
   setCurComponent: (id: string) => void
   updateComponent: (config: any, id: string) => void
   deleteComponent: () => void
   redo: () => void
   undo: () => void
+  initStore: (componentList: ComponentItem[], curLinkNode: LinkNode) => void
 }
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
   return componentList.find(component => component.id === id) ?? null
 }
 
+const updateDb = (componentList: ComponentItem[], curLinkNode: LinkNode) => {
+  db.components.add({
+    id: nanoid(),
+    timestamp: new Date().getTime(),
+    componentStore: {
+      curLinkNode,
+      componentList
+    }
+  })
+}
+
 const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
   componentList: [],
   curComponent: null,
-  curLinkNode: {
-    pre: null,
-    next: null,
-    componentList: []
+  curHistoryAtEnd: false,
+  initStore(componentList, curLinkNode) {
+    set(state => {
+      state.componentList = componentList
+      currentNode = curLinkNode
+      if (!curLinkNode.next) {
+        state.curHistoryAtEnd = true
+      }
+    })
   },
   addComponent(component) {
     set((state) => {
@@ -52,7 +71,8 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList)
       currentNode.next = newNode
       currentNode = newNode
-      state.curLinkNode = currentNode
+
+      updateDb(componentList, currentNode)
     })
   },
   setCurComponent(id: string) {
@@ -79,7 +99,8 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList)
       currentNode.next = newNode
       currentNode = newNode
-      state.curLinkNode = currentNode
+
+      updateDb(componentList, currentNode)
     })
   },
   deleteComponent() {
@@ -92,7 +113,8 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList.splice(index, 1))
       currentNode.next = newNode
       currentNode = newNode
-      state.curLinkNode = currentNode
+
+      updateDb(componentList, currentNode)
     })
   },
   undo() {
@@ -100,7 +122,15 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode = currentNode.pre
       set((state) => {
         state.componentList = currentNode.componentList
-        state.curLinkNode = currentNode
+
+        updateDb(currentNode.componentList, currentNode)
+        console.log(currentNode)
+
+        if (!currentNode.next) {
+          state.curHistoryAtEnd = true
+        } else {
+          state.curHistoryAtEnd = false
+        }
       })
     }
   },
@@ -109,11 +139,17 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode = currentNode.next
       set((state) => {
         state.componentList = currentNode.componentList
-        state.curLinkNode = currentNode
+
+        updateDb(currentNode.componentList, currentNode)
+
+        if (!currentNode.next) {
+          state.curHistoryAtEnd = true
+        } else {
+          state.curHistoryAtEnd = false
+        }
       })
     }
   },
-
 }))))
 
 export default useComponentsStore

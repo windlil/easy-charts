@@ -23,6 +23,12 @@ importers:
       antd:
         specifier: ^5.20.3
         version: 5.20.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      dexie:
+        specifier: ^4.0.8
+        version: 4.0.8
+      dexie-react-hooks:
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@18.3.4)(dexie@4.0.8)(react@18.3.1)
       immer:
         specifier: ^10.1.1
         version: 10.1.1
@@ -1111,6 +1117,16 @@ packages:
 
   defined@1.0.1:
     resolution: {integrity: sha512-hsBd2qSVCRE+5PmNdHt1uzyrFu5d3RwmFDKzyNZMFq/EwDNJF7Ee5+D5oEKF0hU6LhtoUF1macFvOe4AskQC1Q==}
+
+  dexie-react-hooks@1.1.7:
+    resolution: {integrity: sha512-Lwv5W0Hk+uOW3kGnsU9GZoR1er1B7WQ5DSdonoNG+focTNeJbHW6vi6nBoX534VKI3/uwHebYzSw1fwY6a7mTw==}
+    peerDependencies:
+      '@types/react': '>=16'
+      dexie: ^3.2 || ^4.0.1-alpha
+      react: '>=16'
+
+  dexie@4.0.8:
+    resolution: {integrity: sha512-1G6cJevS17KMDK847V3OHvK2zei899GwpDiqfEXHP1ASvme6eWJmAp9AU4s1son2TeGkWmC0g3y8ezOBPnalgQ==}
 
   didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -4049,6 +4065,14 @@ snapshots:
       object-keys: 1.1.1
 
   defined@1.0.1: {}
+
+  dexie-react-hooks@1.1.7(@types/react@18.3.4)(dexie@4.0.8)(react@18.3.1):
+    dependencies:
+      '@types/react': 18.3.4
+      dexie: 4.0.8
+      react: 18.3.1
+
+  dexie@4.0.8: {}
 
   didyoumean@1.2.2: {}
 
