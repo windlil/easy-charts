@@ -57,7 +57,7 @@ const EditorLayout = () => {
         </div>
       </div>
       <footer className={styles.editorLayoutFooter}>
-        <Footer projectId={projectId} projectName={location.state.projectName} />
+        <Footer projectId={projectId} projectName={location?.state?.projectName} />
       </footer>
     </div>
   )

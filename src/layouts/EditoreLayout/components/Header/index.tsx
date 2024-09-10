@@ -1,4 +1,4 @@
-import { ScanEye, Save, Laptop, ChevronLeft } from 'lucide-react'
+import { ScanEye, Save, Laptop, ChevronLeft, Github } from 'lucide-react'
 import TextButton from '@/components/view-components/TextButton'
 import { FC, useEffect, useState } from 'react'
 import { Modal, Form,  message } from 'antd'
@@ -7,6 +7,7 @@ import useComponentsStore, { LinkNode } from '@/stores/components'
 import { currentNode } from '@/stores/components'
 import { updateComponentsDb } from '@/db'
 import CanvasSettingForm from './canvasSettingForm'
+import { useNavigate } from 'react-router-dom'
  
 const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
@@ -14,6 +15,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const canvasColor = useCanvasStore(state => state.canvasColor)
   const showLine = useCanvasStore(state => state.showLine)
   const componentList = useComponentsStore(state => state.componentList)
+  const navigate = useNavigate()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -73,15 +75,18 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
           <CanvasSettingForm setIsModalOpen={setIsModalOpen} messageApi={messageApi} form={form} />
         </Modal>
         <div className='flex gap-2'>
-          <TextButton icon={<ChevronLeft />}></TextButton>
+          <TextButton icon={<ChevronLeft />} onClick={() => navigate('/home')}></TextButton>
         </div>
         <div className='flex gap-12 items-center'>
           <TextButton icon={<Laptop />} onClick={handleOpenModal}>画布设置</TextButton>
         </div>
         <div>
-          <div className='flex gap-2'>
+          <div className='flex gap-3'>
             <TextButton icon={<Save />} onClick={handleSave}>保存</TextButton>
             <TextButton icon={<ScanEye />}>预览</TextButton>
+            <a href='https://github.com/windlil/easy-charts' target='_blank' className='border-2 p-2 rounded-full border-neutral-700 cursor-pointer hover:border-white transition'>
+              <Github className='w-3 h-3' />
+            </a>
           </div>
         </div>
       </div>

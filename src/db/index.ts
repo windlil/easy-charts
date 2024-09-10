@@ -90,5 +90,19 @@ export const updateComponentsDb = async (id: string, canvasStore: CanvasDbStore[
   })
 }
 
+export const getProjectsDb = async () => {
+  try {
+    const projects = await db.project.orderBy('createDate').reverse().toArray()
+    return projects
+  } catch (error) {
+    return []
+  }
+}
+
+export const removeProjectById = async (id: string) => {
+  db.canvas.delete(id)
+  db.project.delete(id)
+}
+
 export type { CanvasDbStore }
 export { db }
