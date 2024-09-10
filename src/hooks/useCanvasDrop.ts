@@ -1,6 +1,6 @@
 import { useDrop } from 'react-dnd'
 import useComponentsStore from '@/stores/components'
-import { ConfigMap } from '@/core/map/configMap'
+import { ConfigMap } from '@/core/static/map/configMap'
 import { RefObject, useCallback } from 'react'
 import useCanvasStore from '@/stores/canvas'
 import { nanoid } from 'nanoid'
@@ -17,7 +17,7 @@ const useCanvasDrop = (canvasRef: RefObject<HTMLDivElement>) => {
     const { top, left } = canvasRef.current!.getBoundingClientRect()
     const offsetX = monitor.getClientOffset()!.x - left
     const offsetY = monitor.getClientOffset()!.y - top
-    
+
     const component: {
       id: string
       name: string,

@@ -1,10 +1,10 @@
 import ComponentItem from '@/components/render-components/ComponentItem'
-import { ComponentItem as ComponentItemType } from '@/global'
+import { DragComponentItem } from '@/global'
 import { FC, useMemo } from 'react'
 
 const ComponentList:FC<{
   curSelectedType: string
-  componentArray: ComponentItemType[] | []
+  componentArray: DragComponentItem[] | []
 }> = ({ curSelectedType, componentArray }) => {
   const renderList = useMemo(() => {
     if (curSelectedType === 'all') {

@@ -1,7 +1,7 @@
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { Button, Form, Select } from 'antd'
 import { FC, useEffect, useMemo } from 'react'
-import { SettingMap } from '@/core/map/settingMap'
+import { SettingMap } from '@/core/static/map/settingMap'
 import { nanoid } from 'nanoid'
 
 export const renderDataMapSettingItem = (type: string, options: any) => {

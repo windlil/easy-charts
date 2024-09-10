@@ -14,6 +14,8 @@ const Menu = () => {
   const [mainMenuSelectedKey, setMainMenuSelectedKey] = useState('chart')
   const [subMenuSelectedKey, setSubMenuSelectedKey] = useState('all')
 
+  console.log(ChartList, treeMenuItems, chartMenuItems, mainMenuItems)
+
   const menuData = useMemo<{
     title: string
     subMenuItems: any[]
