@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     path: '/editor',
     element: createLazyElement(() => import('@/pages/editor/index'))
   },
+  {
+    path: '/home',
+    element: createLazyElement(() => import('@/pages/home'))
+  }
 ])
 
 const Router = () => <_ConfigProvider>

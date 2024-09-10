@@ -2,11 +2,14 @@ import { Switch } from 'antd'
 import useCanvasStore from '@/stores/canvas'
 import useComponentsStore, { currentNode } from '@/stores/components'
 import { MenuFoldOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { updateComponentsDb } from '@/db'
 import dayjs from 'dayjs'
 
-const Footer = () => {
+const Footer:FC<{
+  projectId: string
+  projectName: string
+}> = ({ projectId, projectName }) => {
   const scale = useCanvasStore(state => state.scale)
   const showRight = useCanvasStore(state => state.showRight)
   const updateCanvas = useCanvasStore(state => state.updateCanvas)
@@ -21,7 +24,7 @@ const Footer = () => {
 
   const switchSaveHandle = (value: boolean) => {
     if (value) {
-      updateComponentsDb({
+      updateComponentsDb(projectId, {
         componentList,
         curLinkNode: currentNode,
         canvasWidth,
@@ -37,7 +40,7 @@ const Footer = () => {
     let timer: any
     if (isAutoSave) {
       timer = setInterval(() => {
-        updateComponentsDb({
+        updateComponentsDb(projectId, {
           componentList,
           curLinkNode: currentNode,
           canvasWidth,
@@ -62,7 +65,7 @@ const Footer = () => {
         </div>
         <div className='text-gray-400'>
           <span>当前项目：</span>
-          <span>大屏数据可视化</span>
+          <span>{projectName}</span>
         </div>
       </div>
       <div className='flex gap-1'>

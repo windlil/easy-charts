@@ -1,15 +1,15 @@
 import { renderComponents } from '@/core/render/renderComponents'
 import useComponentsStore, { LinkNode } from '@/stores/components'
 import Ruler from '@scena/react-ruler'
-import { useEffect, useRef } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import styles from './index.module.less'
 import useRuler from '@/hooks/useRuler'
 import useCanvasStore from '@/stores/canvas'
 import useCanvasDrop from '@/hooks/useCanvasDrop'
 import ToolBar from './tool-bar'
-import { CanvasDbStore, db } from '@/db'
+import { CanvasDbStore, db, getCanvasById } from '@/db'
 
-const Canvas = () => {
+const Canvas:FC<{ projectId: string }> = ({ projectId }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
   const curComponent = useComponentsStore(state => state.curComponent)
   const initStore = useComponentsStore(state => state.initStore)
@@ -34,7 +34,7 @@ const Canvas = () => {
   }
 
   const initDb = async() => {
-    const store: CanvasDbStore | undefined = await db.canvas.orderBy('timestamp').reverse().first()
+    const store: CanvasDbStore | undefined | null = await getCanvasById(projectId)
     initStore(store?.canvasStore.componentList ?? [], store?.canvasStore?.curLinkNode ?? new LinkNode())
     updateCanvas({
       canvasWidth: store?.canvasStore.canvasWidth ?? canvasWidth,
@@ -45,7 +45,7 @@ const Canvas = () => {
 
   useEffect(() => {
     initDb()
-  },[])
+  },[projectId])
 
   useEffect(() => {
     handlePos()

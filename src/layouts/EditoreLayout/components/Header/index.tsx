@@ -1,6 +1,6 @@
 import { ScanEye, Save, Laptop, ChevronLeft } from 'lucide-react'
 import TextButton from '@/components/view-components/TextButton'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Modal, Form,  message } from 'antd'
 import useCanvasStore from '@/stores/canvas'
 import useComponentsStore, { LinkNode } from '@/stores/components'
@@ -8,7 +8,7 @@ import { currentNode } from '@/stores/components'
 import { updateComponentsDb } from '@/db'
 import CanvasSettingForm from './canvasSettingForm'
  
-const Header = () => {
+const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
   const canvasColor = useCanvasStore(state => state.canvasColor)
@@ -32,7 +32,7 @@ const Header = () => {
 
   const handleSave = () => {
     if (componentList.length) {
-      updateComponentsDb({
+      updateComponentsDb(projectId, {
         componentList,
         curLinkNode: currentNode,
         canvasWidth,
@@ -40,7 +40,7 @@ const Header = () => {
         canvasColor
       })
     } else {
-      updateComponentsDb({
+      updateComponentsDb(projectId, {
         componentList,
         curLinkNode: new LinkNode(),
         canvasWidth,
