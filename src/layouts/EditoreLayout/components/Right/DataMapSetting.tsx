@@ -5,7 +5,6 @@ import { SettingMap } from '@/core/map/settingMap'
 import { nanoid } from 'nanoid'
 
 export const renderDataMapSettingItem = (type: string, options: any) => {
-  console.log(options)
   switch (type) {
     case 'select':
       return <Select options={options} />

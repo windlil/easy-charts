@@ -27,7 +27,6 @@ const ToolBar:FC<{
   }, [componentList])
 
   const redoDisabledStyle: React.CSSProperties = useMemo(() => {
-    console.log(curHistoryAtEnd)
     if (curHistoryAtEnd) {
       return {
         cursor: 'not-allowed',

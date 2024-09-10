@@ -1,22 +1,23 @@
 import { ScanEye, Save, Laptop, ChevronLeft } from 'lucide-react'
 import TextButton from '@/components/view-components/TextButton'
-import { useEffect, useRef, useState } from 'react'
-import { Modal, Form, InputNumber, Switch, Button, message, ColorPicker } from 'antd'
+import { useEffect, useState } from 'react'
+import { Modal, Form,  message } from 'antd'
 import useCanvasStore from '@/stores/canvas'
-import { ReloadOutlined } from '@ant-design/icons'
+import useComponentsStore, { LinkNode } from '@/stores/components'
+import { currentNode } from '@/stores/components'
+import { updateComponentsDb } from '@/db'
+import CanvasSettingForm from './canvasSettingForm'
  
 const Header = () => {
-  const canvasColor = useCanvasStore(state => state.canvasColor)
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
   const showLine = useCanvasStore(state => state.showLine)
-  const updateCanvas = useCanvasStore(state => state.updateCanvas)
+  const componentList = useComponentsStore(state => state.componentList)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [buttonDisable, setButtonDisable] = useState(true)
-  const [color, setColor] = useState(canvasColor)
+
   const [form] = Form.useForm()
-  const formRef = useRef(null)
+
 
   const [messageApi, messageContext] = message.useMessage()
 
@@ -28,27 +29,13 @@ const Header = () => {
     setIsModalOpen(false)
   }
 
-  const handleFinish = (newProps: any) => {
-    updateCanvas({
-      ...newProps,
-      canvasColor: color
-    })
-    setIsModalOpen(false)
-    messageApi.success('成功修改！')
-  }
-
-  const handleReset = () => {
-    form.setFieldsValue({
-      canvasHeight,
-      canvasWidth,
-      showLine,
-    })
-    setColor(canvasColor)
-  }
-
-  const handleColorChange = (_: unknown, css: string) => {
-    setColor(css)
-    setButtonDisable(false)
+  const handleSave = () => {
+    if (componentList.length) {
+      updateComponentsDb(componentList, currentNode)
+    } else {
+      updateComponentsDb(componentList, new LinkNode())  
+    }
+    messageApi.success('成功保存！')
   }
 
   useEffect(() => {
@@ -70,45 +57,17 @@ const Header = () => {
           onCancel={handleCancel}
           footer={false}
         >
-          <Form
-            ref={formRef}
-            className='my-5'
-            form={form}
-            onFinish={handleFinish}
-            onValuesChange={() => setButtonDisable(false)}
-          >
-            <Form.Item label='宽度' name='canvasWidth'>
-              <InputNumber min={800}></InputNumber>
-            </Form.Item>
-            <Form.Item label='长度' name='canvasHeight'>
-              <InputNumber min={600}></InputNumber>
-            </Form.Item>
-            <Form.Item label='颜色'>
-              <ColorPicker value={color} onChange={handleColorChange} showText />
-            </Form.Item>
-            <Form.Item label='辅助线' name='showLine'>
-              <Switch></Switch>
-            </Form.Item>
-            <div className='w-full flex gap-4 justify-end'>
-              <Button icon={<ReloadOutlined />} onClick={handleReset} />
-              <Button onClick={handleCancel}>
-                取消
-              </Button>
-              <Button disabled={buttonDisable} type='primary' htmlType='submit'>
-                保存
-              </Button>
-            </div>
-          </Form>
+          <CanvasSettingForm setIsModalOpen={setIsModalOpen} messageApi={messageApi} form={form} />
         </Modal>
         <div className='flex gap-2'>
           <TextButton icon={<ChevronLeft />}></TextButton>
         </div>
-        <div>
+        <div className='flex gap-12 items-center'>
           <TextButton icon={<Laptop />} onClick={handleOpenModal}>画布设置</TextButton>
         </div>
         <div>
           <div className='flex gap-2'>
-            <TextButton icon={<Save />}>保存</TextButton>
+            <TextButton icon={<Save />} onClick={handleSave}>保存</TextButton>
             <TextButton icon={<ScanEye />}>预览</TextButton>
           </div>
         </div>

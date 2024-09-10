@@ -1,5 +1,3 @@
-import { db } from '@/db'
-import { nanoid } from 'nanoid'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
@@ -21,7 +19,7 @@ export class LinkNode {
   }
 }
 
-let currentNode = new LinkNode()
+export let currentNode = new LinkNode()
 
 interface Store {
   curHistoryAtEnd: boolean
@@ -38,17 +36,6 @@ interface Store {
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
   return componentList.find(component => component.id === id) ?? null
-}
-
-const updateDb = (componentList: ComponentItem[], curLinkNode: LinkNode) => {
-  db.components.add({
-    id: nanoid(),
-    timestamp: new Date().getTime(),
-    componentStore: {
-      curLinkNode,
-      componentList
-    }
-  })
 }
 
 const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
@@ -72,7 +59,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode.next = newNode
       currentNode = newNode
 
-      updateDb(componentList, currentNode)
     })
   },
   setCurComponent(id: string) {
@@ -100,7 +86,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode.next = newNode
       currentNode = newNode
 
-      updateDb(componentList, currentNode)
     })
   },
   deleteComponent() {
@@ -114,7 +99,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode.next = newNode
       currentNode = newNode
 
-      updateDb(componentList, currentNode)
     })
   },
   undo() {
@@ -122,9 +106,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode = currentNode.pre
       set((state) => {
         state.componentList = currentNode.componentList
-
-        updateDb(currentNode.componentList, currentNode)
-        console.log(currentNode)
 
         if (!currentNode.next) {
           state.curHistoryAtEnd = true
@@ -139,8 +120,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       currentNode = currentNode.next
       set((state) => {
         state.componentList = currentNode.componentList
-
-        updateDb(currentNode.componentList, currentNode)
 
         if (!currentNode.next) {
           state.curHistoryAtEnd = true
