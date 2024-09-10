@@ -1,5 +1,5 @@
 import { ComponentsName } from '@/core/static/limitType'
-import { CommonBaseSettingConfig, CommonConfig, CommonDataMapSetting } from '../CommonConfig'
+import { CommonBaseSettingConfig, CommonConfig, CommonDataMapSetting } from '../../CommonConfig'
 import { DragComponentItem } from '@/global'
 
 const data = [
@@ -14,7 +14,7 @@ const data = [
   { year: '1999', value: 13 },
 ]
 
-export const BaseLineDragConfig: DragComponentItem = {
+export const DragConfig: DragComponentItem = {
   name: '基础折线图',
   key: ComponentsName.BaseLine,
   type: 'line',

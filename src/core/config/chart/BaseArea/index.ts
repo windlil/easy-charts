@@ -1,5 +1,5 @@
 import { ComponentsName } from '@/core/static/limitType'
-import { CommonBaseSettingConfig, CommonConfig, CommonDataMapSetting } from '../CommonConfig'
+import { CommonBaseSettingConfig, CommonConfig, CommonDataMapSetting } from '../../CommonConfig'
 import { DragComponentItem } from '@/global'
 
 const data = [
@@ -10,7 +10,7 @@ const data = [
   { 'name': 'area5', 'value': 70.8 },
 ]
 
-export const BaseAreaDragConfig: DragComponentItem =  {
+export const DragConfig: DragComponentItem = {
   name: '基础面积图',
   key: ComponentsName.BaseArea,
   type: 'area',

@@ -1,4 +1,4 @@
-export * from './BaseLine'
-export * from './BaseColumn'
-export * from './BasePie'
-export * from './BaseArea'
+export { BaseAreaDefaultConfig, BaseAreaSettingConfig } from './chart/BaseArea'
+export { BaseColumnDefaultConfig, BaseColumnSettingConfig } from './chart/BaseColumn'
+export { BaseLineDefaultConfig, BaseLineSettingConfig } from './chart/BaseLine'
+export { BasePieDefaultConfig, BasePieSettingConfig } from './chart/BasePie'

@@ -1,4 +1,4 @@
-import { BaseAreaSettingConfig, BaseColumnSettingConfig, BaseLineSettingConfig, BasePieSettingConfig } from '@/core/config'
+import { BaseAreaSettingConfig, BaseColumnSettingConfig, BaseLineSettingConfig, BasePieSettingConfig } from '@/core/config/index'
 import { ComponentsName } from '../limitType'
 
 export const SettingMap: Record<string, any> = {

@@ -4,7 +4,7 @@ import {
   BaseLineDefaultConfig,
   BasePieDefaultConfig,
   BaseAreaDefaultConfig
-} from '@/core/config'
+} from '@/core/config/index'
 
 export const ConfigMap: Record<string, any> = {
   [ComponentsName.BaseColumn]: BaseColumnDefaultConfig,

@@ -1,5 +1,5 @@
 import { ComponentsName } from '@/core/static/limitType'
-import { CommonBaseSettingConfig, CommonConfig } from '../CommonConfig'
+import { CommonBaseSettingConfig, CommonConfig } from '../../CommonConfig'
 import { DragComponentItem } from '@/global'
 
 const data = [
@@ -11,7 +11,7 @@ const data = [
   { type: '其他', value: 5 },
 ]
 
-export const BasePieDragConfig: DragComponentItem = {
+export const DragConfig: DragComponentItem = {
   name: '饼图',
   key: ComponentsName.BasePie,
   type: 'pie',

@@ -1,5 +1,5 @@
 import { ComponentsName } from '@/core/static/limitType'
-import { CommonConfig, CommonBaseSettingConfig, CommonDataMapSetting } from '../CommonConfig'
+import { CommonConfig, CommonBaseSettingConfig, CommonDataMapSetting } from '../../CommonConfig'
 import { DragComponentItem } from '@/global'
 
 const data = [
@@ -14,7 +14,7 @@ const data = [
   { name: 'I', value: 0.06966 }
 ]
 
-export const BaseColumnDragConfig: DragComponentItem = {
+export const DragConfig: DragComponentItem = {
   name: '基础柱状图',
   key: ComponentsName.BaseColumn,
   type: 'column',
