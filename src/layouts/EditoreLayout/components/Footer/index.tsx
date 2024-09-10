@@ -11,12 +11,23 @@ const Footer = () => {
   const showRight = useCanvasStore(state => state.showRight)
   const updateCanvas = useCanvasStore(state => state.updateCanvas)
   const componentList = useComponentsStore(state => state.componentList)
+  const canvasWidth = useCanvasStore(state => state.canvasWidth)
+  const canvasHeight = useCanvasStore(state => state.canvasHeight)
+  const canvasColor = useCanvasStore(state => state.canvasColor)
+
   const [isAutoSave, setIsAutoSave] = useState(true)
   const [lastSaveDate, setLastSavedate] = useState<any>()
+  
 
   const switchSaveHandle = (value: boolean) => {
     if (value) {
-      updateComponentsDb(componentList, currentNode)
+      updateComponentsDb({
+        componentList,
+        curLinkNode: currentNode,
+        canvasWidth,
+        canvasHeight,
+        canvasColor
+      })
       setLastSavedate(dayjs().format('YYYY.MM.DD HH:mm:ss'))
     }
     setIsAutoSave(value)
@@ -26,14 +37,20 @@ const Footer = () => {
     let timer: any
     if (isAutoSave) {
       timer = setInterval(() => {
-        updateComponentsDb(componentList, currentNode)
+        updateComponentsDb({
+          componentList,
+          curLinkNode: currentNode,
+          canvasWidth,
+          canvasHeight,
+          canvasColor
+        })
         setLastSavedate(dayjs().format('YYYY.MM.DD HH:mm:ss'))
       }, 1000 * 10)
     }
     return () => {
       timer && clearInterval(timer)
     }
-  }, [isAutoSave, componentList])
+  }, [isAutoSave, componentList, canvasWidth, canvasHeight, canvasColor])
 
   return (
     <>

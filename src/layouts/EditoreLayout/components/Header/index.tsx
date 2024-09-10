@@ -11,6 +11,7 @@ import CanvasSettingForm from './canvasSettingForm'
 const Header = () => {
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
+  const canvasColor = useCanvasStore(state => state.canvasColor)
   const showLine = useCanvasStore(state => state.showLine)
   const componentList = useComponentsStore(state => state.componentList)
 
@@ -31,9 +32,21 @@ const Header = () => {
 
   const handleSave = () => {
     if (componentList.length) {
-      updateComponentsDb(componentList, currentNode)
+      updateComponentsDb({
+        componentList,
+        curLinkNode: currentNode,
+        canvasWidth,
+        canvasHeight,
+        canvasColor
+      })
     } else {
-      updateComponentsDb(componentList, new LinkNode())  
+      updateComponentsDb({
+        componentList,
+        curLinkNode: new LinkNode(),
+        canvasWidth,
+        canvasHeight,
+        canvasColor
+      })
     }
     messageApi.success('成功保存！')
   }

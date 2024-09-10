@@ -3,38 +3,38 @@ import { ComponentItem, LinkNode } from '@/stores/components'
 import Dexie, { type EntityTable } from 'dexie'
 import { nanoid } from 'nanoid'
 
-interface ComponentDbStore {
+interface CanvasDbStore {
   id: string
   timestamp: number
-  componentStore: {
+  canvasStore: {
     componentList: ComponentItem[],
-    curLinkNode: LinkNode
+    curLinkNode: LinkNode,
+    canvasWidth: number
+    canvasHeight: number
+    canvasColor: string
   }
 }
 
 const db = new Dexie('StoresDatabase') as Dexie & {
-  components: EntityTable<
-    ComponentDbStore,
+  canvas: EntityTable<
+    CanvasDbStore,
     'id' // primary key 'id' (for the typings only)
   >
 }
 
 // Schema declaration:
 db.version(1).stores({
-  components: 'id, timestamp, componentStore' // primary key 'id' (for the runtime!)
+  canvas: 'id, timestamp, canvasStore' // primary key 'id' (for the runtime!)
 })
 
-export const updateComponentsDb = (componentList: ComponentItem[], curLinkNode: LinkNode) => {
-  db.components.clear()
-  db.components.add({
+export const updateComponentsDb = (canvasStore: CanvasDbStore['canvasStore']) => {
+  db.canvas.clear()
+  db.canvas.add({
     id: nanoid(),
     timestamp: new Date().getTime(),
-    componentStore: {
-      curLinkNode,
-      componentList
-    }
+    canvasStore
   })
 }
 
-export type { ComponentDbStore }
+export type { CanvasDbStore }
 export { db }

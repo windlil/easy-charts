@@ -26,7 +26,7 @@ const useCanvasStore = defineStore<Store>((set) => ({
         ...newProps
       }
     })
-  }
+  },
 }))
 
 export default useCanvasStore

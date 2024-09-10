@@ -7,7 +7,7 @@ import useRuler from '@/hooks/useRuler'
 import useCanvasStore from '@/stores/canvas'
 import useCanvasDrop from '@/hooks/useCanvasDrop'
 import ToolBar from './tool-bar'
-import { ComponentDbStore, db } from '@/db'
+import { CanvasDbStore, db } from '@/db'
 
 const Canvas = () => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
@@ -17,12 +17,14 @@ const Canvas = () => {
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
   const canvasHeight = useCanvasStore(state => state.canvasHeight)
   const canvasColor = useCanvasStore(state => state.canvasColor)
+  const updateCanvas = useCanvasStore(state => state.updateCanvas)
 
   const containerRef = useRef<HTMLDivElement>(null)
   const layoutRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
   const verticalRulerRef = useRef<Ruler>(null)
   const horizontalRulerRef = useRef<Ruler>(null)
+
 
   const { containerMouseDown, handleScale, handlePos, zoom, unit, posX, posY } = useRuler(containerRef, layoutRef, canvasRef)
   const { drop } = useCanvasDrop(canvasRef)
@@ -32,8 +34,13 @@ const Canvas = () => {
   }
 
   const initDb = async() => {
-    const store: ComponentDbStore | undefined = await db.components.orderBy('timestamp').reverse().first()
-    initStore(store?.componentStore.componentList ?? [], store?.componentStore?.curLinkNode ?? new LinkNode())
+    const store: CanvasDbStore | undefined = await db.canvas.orderBy('timestamp').reverse().first()
+    initStore(store?.canvasStore.componentList ?? [], store?.canvasStore?.curLinkNode ?? new LinkNode())
+    updateCanvas({
+      canvasWidth: store?.canvasStore.canvasWidth ?? canvasWidth,
+      canvasHeight: store?.canvasStore.canvasHeight ?? canvasHeight,
+      canvasColor: store?.canvasStore.canvasColor ?? canvasColor,
+    })
   }
 
   useEffect(() => {
