@@ -1,6 +1,5 @@
 import { ComponentItem, LinkNode } from '@/stores/components'
 import Dexie, { type EntityTable } from 'dexie'
-import { nanoid } from 'nanoid'
 
 interface CanvasDbStore {
   id: string
@@ -26,7 +25,7 @@ const db = new Dexie('StoresDatabase') as Dexie & {
     CanvasDbStore,
     'id'
   >,
-  project:  EntityTable<
+  project: EntityTable<
     ProjectDbStore,
     'id'
   >,
@@ -48,12 +47,7 @@ export const updateProjectDb = (id: string, name: string, desc: string, createDa
 
 export const updateCanvasById = async (id: string, updates: Partial<CanvasDbStore>) => {
   try {
-    const updated = await db.canvas.update(id, updates)
-    if (updated) {
-      console.log(`Canvas with id ${id} updated successfully`, updates)
-    } else {
-      console.log(`Canvas with id ${id} not found`)
-    }
+    await db.canvas.update(id, updates)
   } catch (error) {
     console.error('Failed to update canvas by id:', error)
   }
@@ -62,7 +56,6 @@ export const updateCanvasById = async (id: string, updates: Partial<CanvasDbStor
 export const getCanvasById = async (id: string) => {
   try {
     const canvas = await db.canvas.get(id ?? '')
-    console.log(canvas)
     return canvas
   } catch (error) {
     console.error('Failed to get canvas by id:', error)
@@ -85,6 +78,7 @@ export const updateComponentsDb = async (id: string, canvasStore: CanvasDbStore[
   if (!id) {
     return
   }
+
   await updateCanvasById(id, {
     canvasStore
   })
@@ -94,7 +88,7 @@ export const getProjectsDb = async () => {
   try {
     const projects = await db.project.orderBy('createDate').reverse().toArray()
     return projects
-  } catch (error) {
+  } catch {
     return []
   }
 }

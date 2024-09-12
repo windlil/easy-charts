@@ -7,7 +7,7 @@ import useRuler from '@/hooks/useRuler'
 import useCanvasStore from '@/stores/canvas'
 import useCanvasDrop from '@/hooks/useCanvasDrop'
 import ToolBar from './tool-bar'
-import { CanvasDbStore, db, getCanvasById } from '@/db'
+import { CanvasDbStore, getCanvasById } from '@/db'
 
 const Canvas:FC<{ projectId: string }> = ({ projectId }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
@@ -114,8 +114,8 @@ const Canvas:FC<{ projectId: string }> = ({ projectId }) => {
               ref={layoutRef}
               className={`${styles.contentLayout}`}
               style={{
-              width: `${canvasWidth * 2}px`,
-              height: `${canvasHeight * 2}px`
+              width: `${canvasWidth * 1.5}px`,
+              height: `${canvasHeight * 1.5}px`
               }}
               onClick={() => setCurComponent('')}
             >

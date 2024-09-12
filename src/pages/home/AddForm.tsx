@@ -8,7 +8,6 @@ const AddForm = () => {
 
   const handleFinish = (values: any) => {
     const uid = nanoid()
-    console.log(values)
     updateProjectDb(uid, values.projectName, values.projectDesc ?? '', new Date().getTime())
     navigate(`/editor?projectId=${uid}`,{
       state: values

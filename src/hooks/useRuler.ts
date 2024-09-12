@@ -1,4 +1,4 @@
-import { RefObject, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 import useCanvasStore from '@/stores/canvas'
 
 const useRuler = (containerRef: RefObject<HTMLDivElement>, layoutRef: RefObject<HTMLDivElement>, canvasRef: RefObject<HTMLDivElement>) => {

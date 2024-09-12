@@ -18,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: createLazyElement(() => import('@/pages/home'))
+  },
+  {
+    path: '/preview',
+    element: createLazyElement(() => import('@/pages/preview'))
   }
 ])
 

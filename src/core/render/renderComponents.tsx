@@ -7,7 +7,7 @@ import useCanvasStore from '@/stores/canvas'
 
 const Component:FC<{
   component: ComponentItem
-  isActive: boolean
+  isActive?: boolean
 }> = memo(({ component }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
   const componentRef = useRef<HTMLDivElement>(null)
@@ -31,6 +31,28 @@ const Component:FC<{
         onClick={handleClickComponent}
       >
         {createElement((componentMap as any)[component.name], {config: component.config})}
+      </div>
+    </>
+  )
+})
+
+const PreviewComponent:FC<{
+  component: ComponentItem
+}> = memo(({ component }) => {
+  const config = structuredClone(component.config)
+  config.animate = true
+  return (
+    <>
+      <div
+        data-componentid={component.id}
+        className='absolute'
+        style={{
+          transform: `translate(${component.config.x}px,${component.config.y}px)`,
+          zIndex: component.config.z,
+        }}
+        key={nanoid()}
+      >
+        {createElement((componentMap as any)[component.name], {config: config})}
       </div>
     </>
   )
@@ -130,5 +152,15 @@ export const renderComponents = () => {
         }, curComponent!.id)
       }}
     />
+  </>
+}
+
+export const renderPreviewComponents = (componentList: ComponentItem[]) => {  
+  return <>
+    {componentList?.map((component) => {
+      return (
+        <PreviewComponent component={component} key={component.id} />
+      )
+    })}
   </>
 }

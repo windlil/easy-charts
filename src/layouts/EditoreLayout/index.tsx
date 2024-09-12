@@ -24,8 +24,6 @@ const EditorLayout = () => {
     // const values = location.state
     const projectId = searchParams.get('projectId')
 
-    console.log('projectId',projectId)
-
     if (!projectId) {
       return navigate('/home')
     }

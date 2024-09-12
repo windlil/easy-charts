@@ -7,7 +7,7 @@ import useComponentsStore, { LinkNode } from '@/stores/components'
 import { currentNode } from '@/stores/components'
 import { updateComponentsDb } from '@/db'
 import CanvasSettingForm from './canvasSettingForm'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
  
 const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const canvasWidth = useCanvasStore(state => state.canvasWidth)
@@ -16,6 +16,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const showLine = useCanvasStore(state => state.showLine)
   const componentList = useComponentsStore(state => state.componentList)
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -30,6 +31,11 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false)
+  }
+
+  const toPreview = () => {
+    const projectId = searchParams.get('projectId')
+    window.open(`/preview/?projectId=${projectId}`)
   }
 
   const handleSave = () => {
@@ -83,7 +89,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
         <div>
           <div className='flex gap-3'>
             <TextButton icon={<Save />} onClick={handleSave}>保存</TextButton>
-            <TextButton icon={<ScanEye />}>预览</TextButton>
+            <TextButton icon={<ScanEye />} onClick={toPreview}>预览</TextButton>
             <a href='https://github.com/windlil/easy-charts' target='_blank' className='border-2 p-2 rounded-full border-neutral-700 cursor-pointer hover:border-white transition'>
               <Github className='w-3 h-3' />
             </a>
