@@ -128,7 +128,12 @@ const Home = () => {
         <AddForm />
       </Modal>
       <div className='flex items-center justify-between px-10 py-3 border-b border-neutral-700'>
-        <span>EasyCharts</span>
+        <div className='flex items-center gap-2'>
+          <span>
+            <img className='w-4 h-4' src='logo.svg' />
+          </span>
+          <span>EasyCharts</span>
+        </div>
         <a href='https://github.com/windlil/easy-charts' target='_blank' className='border-2 p-2 rounded-full border-neutral-700 cursor-pointer hover:border-white transition'>
           <Github className='w-4 h-4' />
         </a>

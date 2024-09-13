@@ -48,23 +48,25 @@ const Right = () => {
       case 'dataMap':
         return <DataMapSetting curComponent={curComponent} />
       default:
-        return (<Form
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 16 }}
-          size='small'
-          form={form}
-          onBlur={handleBlur}
-        >
-          {currentSettingKey === 'base' && <Form.Item label={'ID'} className='mb-4'>
-            <Input disabled value={curComponent.id}></Input>
-          </Form.Item>}
-          {SettingMap?.[curComponent.name]?.[currentSettingKey] && 
-          SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
-            <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
-              {createSettingItem(item.type)}
-            </Form.Item>
-          ))}
-        </Form>)
+        return (
+          <Form
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 16 }}
+            size='small'
+            form={form}
+            onBlur={handleBlur}
+          >
+            {currentSettingKey === 'base' && <Form.Item label={'ID'} className='mb-4'>
+              <Input disabled value={curComponent.id}></Input>
+            </Form.Item>}
+            {SettingMap?.[curComponent.name]?.[currentSettingKey] && 
+            SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
+              <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
+                {createSettingItem(item.type)}
+              </Form.Item>
+            ))}
+          </Form>
+        )
     }
   }
 
@@ -90,7 +92,7 @@ const Right = () => {
           <MenuUnfoldOutlined onClick={handleClose} className='text-zinc-600' />
         </div>
       </div>
-      <div className='w-72 mt-4'>
+      <div className='w-72 h-full mt-4 overflow-scroll pb-20'>
         {curComponent ? renderSetting(curComponent) : <Empty className='mt-56' image={Empty.PRESENTED_IMAGE_SIMPLE} description={'暂未选中任何组件'} />}
       </div>
     </div> : null

@@ -12,6 +12,8 @@ const Component:FC<{
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
   const componentRef = useRef<HTMLDivElement>(null)
 
+  console.log(component.config)
+
   const handleClickComponent: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
     setCurComponent(component.id)
@@ -63,7 +65,6 @@ export const renderComponents = () => {
   const componentList = useComponentsStore(state => state.componentList)
   const updateComponent = useComponentsStore(state => state.updateComponent)
   const { canvasWidth, canvasHeight, showLine } = useCanvasStore()
-
 
   const targetsRef = useRef<any>([])
   const [target, setTarget] = useState<HTMLDivElement | null>(null)
