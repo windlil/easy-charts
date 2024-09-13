@@ -9,7 +9,10 @@ const ApiForm = (props: any) => {
   const { messageApi, curComponent } = props
   const [form] = Form.useForm()
   const [showModal, setShowModal] = useState(false)
+  const [showRequestTestModal, setShowRequestTestModal] = useState(false)
   const updateComponent = useComponentsStore(state => state.updateComponent)
+  const [responseData, setResponseData] = useState<any>(null)
+  const getDataButtonRef = useRef<any>(null)
 
   const editorRef = useRef<any>(null)
 
@@ -19,13 +22,11 @@ const ApiForm = (props: any) => {
 
   const onFinish = async (values: any) => {
     const { headers, params, url, method, interval } = values
-
     const stringFunction = editorRef.current.getValue()
     const func = new Function('return ' + stringFunction)()
 
     let result
     if (headers) {
-      console.log()
       result = validateJSON(headers, messageApi)
       if (!result) return
     } 
@@ -55,6 +56,26 @@ const ApiForm = (props: any) => {
     setShowModal(false)
   }
 
+  const handleGetDate = async () => {
+    if (!curComponent?.config?.request) return
+    const { stringFunction, method, url } = curComponent?.config?.request as any
+    getDataButtonRef.current.disabled = true
+
+    const func = new Function('return ' + stringFunction)()
+
+    const data = func(await request(method, url))
+
+    setResponseData(JSON.stringify(data))
+  }
+
+  const handleOpenTest = () => {
+    if (curComponent?.config?.dataSource === 'static') {
+      messageApi.warning('请先设置请求方式后再进行测试！')
+      return
+    }
+    setShowRequestTestModal(true)
+  }
+
   useEffect(() => {
     showModal && form?.setFieldsValue(curComponent.config?.request)
   }, [showModal, form, curComponent])
@@ -64,8 +85,12 @@ const ApiForm = (props: any) => {
       <Button onClick={() => setShowModal(true)} type='primary' className='w-full'>
         进入设置
       </Button>
+      <Button className='w-full mt-4' onClick={handleOpenTest}>
+        测试请求
+      </Button>
       <Modal
         width={600}
+        height={600}
         open={showModal}
         footer={null}
         title={'请求方式设置'}
@@ -135,6 +160,19 @@ const ApiForm = (props: any) => {
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+      <Modal
+        width={600}
+        open={showRequestTestModal}
+        onCancel={() => setShowRequestTestModal(false)}
+        footer={null}
+      >
+        <div className='h-[500px] pt-8'>
+          <Input.TextArea style={{resize: 'none'}} rows={16} disabled value={responseData}></Input.TextArea>
+          <Button ref={getDataButtonRef} className='w-full mt-10' onClick={handleGetDate}>
+            发起请求
+          </Button>
+        </div>
       </Modal>
     </div>
   )

@@ -33,7 +33,7 @@ const Preview = () => {
 
   return (
     <div
-      className='w-full h-full flex justify-center items-center'
+      className='w-full h-full flex justify-center items-center overflow-hidden'
     >
       <div 
         className='relative'
