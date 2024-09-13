@@ -16,6 +16,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@scena/react-ruler": "^0.19.0",
     "antd": "^5.20.3",
+    "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "dexie": "^4.0.8",
     "dexie-react-hooks": "^1.1.7",
