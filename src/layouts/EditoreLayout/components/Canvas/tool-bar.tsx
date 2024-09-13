@@ -2,6 +2,7 @@ import { ComponentItem, LinkNode } from '@/stores/components'
 import { Redo2, Undo2, RotateCcw, Trash2 } from 'lucide-react'
 import { FC, memo, useMemo } from 'react'
 import useComponentsStore from '@/stores/components'
+import useCanvasStore from '@/stores/canvas'
 
 const ToolBar:FC<{
   curComponent: ComponentItem | null
@@ -11,6 +12,7 @@ const ToolBar:FC<{
   const undo = useComponentsStore(state => state.undo)
   const componentList = useComponentsStore(state => state.componentList)
   const curHistoryAtEnd = useComponentsStore(state => state.curHistoryAtEnd)
+  const setCurComponent = useComponentsStore(state => state.setCurComponent)
   const initStore = useComponentsStore(state => state.initStore)
 
   const undoDisabledStyle: React.CSSProperties = useMemo(() => {
@@ -48,14 +50,17 @@ const ToolBar:FC<{
 
   const handleUnDo = () => {
     undo()
+    setCurComponent('')
   }
 
   const handleReDo = () => {
     redo()
+    setCurComponent('')
   }
 
   const resetCanvas = () => {
     initStore([], new LinkNode())
+    setCurComponent('')
   }
 
   return (

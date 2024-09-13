@@ -57,7 +57,7 @@ const DataMapSetting: FC<{
         ))}
       </Form>
       <div className='w-full flex justify-center'>
-        <Button onClick={handleSave} type='primary' size='small' className='w-64 mx-auto'>
+        <Button onClick={handleSave} type='primary' className='w-64 mx-auto'>
           保存
         </Button>
       </div>

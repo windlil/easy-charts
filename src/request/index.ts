@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const request = async (method: 'GET' | 'POST', url: string) => {
-  console.log(axios)
+export const request = async (method: 'GET' | 'POST', url: string, curComponent?: number) => {
   const res = await axios.request({
     method,
     url
   })
+  console.log('resData', res)
   return res
 }
 

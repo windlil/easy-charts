@@ -1,6 +1,6 @@
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { Button, Form, Select, message } from 'antd'
-import { FC, useRef, useState } from 'react' 
+import { FC, useEffect, useRef, useState } from 'react' 
 import { Editor } from '@monaco-editor/react'
 import ApiForm from './components/ApiForm'
 
@@ -34,7 +34,6 @@ const DataSetting:FC<{
   const handleClickSave = () => {
     const json = editorRef.current.getValue()
     const isTrueJson = validateJSON(json, messageApi)
-    console.log('update', json)
     if (isTrueJson) {
       updateComponent({
         data: JSON.parse(json),
@@ -44,11 +43,16 @@ const DataSetting:FC<{
     }
   }
 
+  useEffect(() => {
+    setSource(curComponent?.config?.dataSource)
+    console.log('刷新了', curComponent?.config?.dataSource)
+  }, [curComponent.config.dataSource, curComponent])
+
   return (
     <div className='px-4'>
       {messageContext}
       <Form>
-        <Form.Item label='数据来源'>
+        <Form.Item className='mb-2' label='数据来源'>
           <Select 
             value={source}
             onChange={handleSelectChange}
@@ -65,6 +69,9 @@ const DataSetting:FC<{
           />
         </Form.Item>
       </Form>
+      <p className='text-xs mb-4'>
+        ⚠️ 如果数据的key发生修改，需要重新修改映射
+      </p>
       {source === 'static' ? (
       <>
         <Editor
@@ -72,7 +79,7 @@ const DataSetting:FC<{
           theme='vs-dark'
           height={'500px'}
           defaultLanguage='json'
-          defaultValue={JSON.stringify(curComponent?.config?.data, null, 2)}
+          value={JSON.stringify(curComponent?.config?.data, null, 2)}
           options={{
             minimap: { enabled: false }
           }}

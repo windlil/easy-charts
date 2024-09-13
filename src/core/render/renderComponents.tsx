@@ -4,15 +4,38 @@ import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { nanoid } from 'nanoid'
 import Moveable from 'react-moveable'
 import useCanvasStore from '@/stores/canvas'
+import { request } from '@/request/index'
 
 const Component:FC<{
   component: ComponentItem
   isActive?: boolean
 }> = memo(({ component }) => {
   const setCurComponent = useComponentsStore(state => state.setCurComponent)
+  const updateComponent = useComponentsStore(state => state.updateComponent)
   const componentRef = useRef<HTMLDivElement>(null)
 
-  console.log(component.config)
+  console.log(component.config?.dataSource)
+  useEffect(() => {
+    const getData = async () => {
+      const requestConfig: any = component.config?.request
+      if (!requestConfig) return
+
+      const func = new Function('return ' + requestConfig.stringFunction)()
+
+      const data = func(await request(requestConfig.method, requestConfig.url))
+
+      if (!data) return
+
+      updateComponent({
+        data
+      }, component.id)
+    }
+
+    if (component.config?.dataSource === 'api') {
+      console.log('???')
+      getData()
+    }
+  }, [])
 
   const handleClickComponent: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
