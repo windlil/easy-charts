@@ -19,7 +19,7 @@ export default tseslint.config({
     ...reactHooks.configs.recommended.rules,
     'jsx-quotes': ["error", "prefer-single"],
     '@typescript-eslint/no-unused-vars': 'warn',
-    'quotes': ['error', 'single'],
+    'quotes': ['warn', 'single', { "allowTemplateLiterals": true }],
     'semi': ['error', 'never'],
     '@typescript-eslint/no-explicit-any': 'off',
     "@typescript-eslint/no-unused-expressions": "off",
