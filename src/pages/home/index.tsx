@@ -1,5 +1,5 @@
 import { Button, Menu, message, Modal, Popconfirm, Table } from 'antd'
-import { Github } from 'lucide-react'
+import { Github, LogOut } from 'lucide-react'
 import { AppstoreAddOutlined, SwitcherOutlined } from '@ant-design/icons'
 import { useEffect, useMemo, useState } from 'react'
 import AddForm from './AddForm'
@@ -13,11 +13,6 @@ const Items = [
     key: 'design',
     icon: <AppstoreAddOutlined />
   },
-  {
-    label: '开发模版',
-    key: 'template',
-    icon: <SwitcherOutlined />
-  }
 ]
 
 const Home = () => {
@@ -117,6 +112,10 @@ const Home = () => {
     setProjectList(list)
   }
 
+  const handleLogOut = () => {
+
+  }
+
   useEffect(() => {
     getList()
   }, [])
@@ -138,11 +137,20 @@ const Home = () => {
           <Github className='w-4 h-4' />
         </a>
       </div>
-      <div className='flex h-full'>
+      <div className='flex h-full relative'>
         <div className='flex flex-col items-center h-full p-4 w-40 border-neutral-700 border-r'>
           <Menu defaultSelectedKeys={['design']} items={Items} className='w-full text-center' style={{
             border: 0
           }} />
+          <div className='flex items-center justify-between absolute w-36 p-2 bottom-16 border-t border-neutral-800'>
+            <div className='flex items-center gap-2'>
+              <span className='rounded-full w-4 h-4 bg-zinc-500'></span>
+              <span className='text-neutral-400'>windlil</span>
+            </div>
+            <span className='cursor-pointer' onClick={handleLogOut}>
+              <LogOut className='w-4 h-4' />
+            </span>
+          </div>
         </div>
         <div className='flex-1 h-full flex justify-center pt-6'>
           <div className='w-[95%] h-[90%] bg-gray-800/20 rounded-md'>
