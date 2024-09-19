@@ -1,9 +1,25 @@
-import { Button, Form, Input, InputNumber, Modal } from 'antd'
+import { Button, Form, Input, InputNumber, message, Modal } from 'antd'
 import { validateJSON } from '../DataSetting'
 import useComponentsStore from '@/stores/components'
 import { request } from '@/request'
 import { Editor } from '@monaco-editor/react'
 import { useEffect, useRef, useState } from 'react'
+
+const validateFunction = (stringFunction: string) => {
+  if (stringFunction) {
+    try {
+      const func = new Function('return ' + stringFunction)()
+      if (typeof func !== 'function') {
+        message.error('请输入正确格式的回调函数！')
+        return false
+      }
+      return func
+    } catch {
+      message.error('请输入正确格式的回调函数！')
+      return false
+    }
+  }
+}
 
 const ApiForm = (props: any) => {
   const { messageApi, curComponent } = props
@@ -23,7 +39,9 @@ const ApiForm = (props: any) => {
   const onFinish = async (values: any) => {
     const { headers, params, url, method, interval } = values
     const stringFunction = editorRef.current.getValue()
-    const func = new Function('return ' + stringFunction)()
+    const func = validateFunction(stringFunction)
+    console.log(func)
+    if (!func) return
 
     let result
     if (headers) {
@@ -37,7 +55,12 @@ const ApiForm = (props: any) => {
 
     const data = func(await request(method, url))
 
-    if (!data) return
+    console.log('data:',data)
+
+    if (!data) {
+      messageApi.error('保存失败！请求有误')
+      return
+    }
 
     updateComponent({
       dataSource: 'api',
@@ -147,7 +170,7 @@ const ApiForm = (props: any) => {
               theme='vs-dark'
               height={'200px'}
               defaultLanguage='javascript'
-              defaultValue={`function callback(data) {\n return data?.data \n}`}
+              value={curComponent?.config?.request?.stringFunction ?? `function callback(data) {\n return data?.data \n}`}
               options={{
                 minimap: { enabled: false }
               }}
