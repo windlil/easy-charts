@@ -32,6 +32,7 @@ interface Store {
   redo: () => void
   undo: () => void
   initStore: (componentList: ComponentItem[], curLinkNode: LinkNode) => void
+  updateCurComponentEvent: (id: string, eventName: string, eventConfig: any) => void
 }
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
@@ -58,7 +59,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList)
       currentNode.next = newNode
       currentNode = newNode
-
     })
   },
   setCurComponent(id: string) {
@@ -85,7 +85,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList)
       currentNode.next = newNode
       currentNode = newNode
-
     })
   },
   deleteComponent() {
@@ -98,7 +97,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       const newNode = new LinkNode(currentNode, null, componentList.splice(index, 1))
       currentNode.next = newNode
       currentNode = newNode
-
     })
   },
   undo() {
@@ -129,6 +127,19 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       })
     }
   },
+  updateCurComponentEvent(id, eventName, eventConfig) {
+    set((state) => {
+      if (!state.curComponent) return
+      const curComponent = getCurComponentById(state.componentList, id)!
+      if (!curComponent.config.events) {
+        curComponent.config.events = {}
+      }
+      if (!curComponent.config.events[eventName]) {
+        curComponent.config.events[eventName] = {}
+      }
+      curComponent.config.events[eventName] = eventConfig
+    })
+  }
 }))))
 
 export default useComponentsStore

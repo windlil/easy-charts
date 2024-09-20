@@ -10,6 +10,7 @@ import { MenuUnfoldOutlined } from '@ant-design/icons'
 import useCanvasStore from '@/stores/canvas'
 import DataSetting from './DataSetting'
 import DataMapSetting from './DataMapSetting'
+import ActionSetting from './ActionSetting'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
@@ -47,6 +48,8 @@ const Right = () => {
         return <DataSetting curComponent={curComponent} />
       case 'dataMap':
         return <DataMapSetting curComponent={curComponent} />
+      case 'action':
+        return <ActionSetting/>
       default:
         return (
           <Form
