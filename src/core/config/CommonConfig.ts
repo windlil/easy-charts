@@ -42,6 +42,41 @@ export const CommonBaseSettingConfig = [
   },
 ]
 
+export const CommonBaseActionsConfig = [
+  {
+    name: 'eventType',
+    label: '选择事件',
+    type: 'select',
+    options: [
+      {
+        key: 'showMessage',
+        value: '消息提醒',
+      },
+    ],
+    childSetting: [
+      {
+        type: 'select',
+        name: 'type',
+        label: '提醒类型',
+        options: [
+          {
+            key: 'success',
+            value: '成功',
+          },
+          {
+            key: 'warn',
+            value: '警告'
+          },
+          {
+            key: 'danger',
+            value: '危险'
+          },
+        ],
+      },
+    ],
+  }
+]
+
 
 export const CommonDataMapSetting= [
   {

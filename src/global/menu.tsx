@@ -105,8 +105,4 @@ export const settingAttributeMenuList: MainMenuItem[] = [
     label: '映射',
     key: 'dataMap',
   },
-  {
-    label: '交互',
-    key: 'action',
-  },
 ]

@@ -1,3 +1,4 @@
+import { CommonBaseActionsConfig } from "@/core/config/CommonConfig"
 import useComponentsStore from "@/stores/components"
 import { Form, Menu, Select } from "antd"
 import { useMemo } from "react"
@@ -16,6 +17,24 @@ const EventFlow = () => {
     return items
   }, [componentList])
 
+  const renderFormItem = (child: any) => {
+    console.log(child)
+    return child.map((item: any) => {
+      switch(item.type) {
+        case 'select':
+          return (
+            <div key={item.label}>
+              <Form.Item name={item.name} label={item.label}>
+                <Select options={item.options} />
+              </Form.Item>
+              {item.childSetting && renderFormItem(item.childSetting)}
+            </div>
+          )
+      }
+      return null
+    })
+  }
+
   return (
     <div className='w-[95vw] h-[90vh] flex gap-2'>
       <Menu
@@ -27,9 +46,9 @@ const EventFlow = () => {
         }}
       />
       <div className='flex-1 p-4 px-20 bg-neutral-800'>
-        <Form.Item label='点击事件'>
-          <Select></Select>
-        </Form.Item>
+        <Form>
+          {renderFormItem(CommonBaseActionsConfig)}
+        </Form>
       </div>
     </div>
   )

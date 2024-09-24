@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
+import { defineStore } from './defineStore'
 
 export type ComponentItem = {
   id: string
@@ -39,7 +40,7 @@ const getCurComponentById = (componentList: ComponentItem[], id: string) => {
   return componentList.find(component => component.id === id) ?? null
 }
 
-const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
+const useComponentsStore = defineStore<Store>((set, get) => ({
   componentList: [],
   curComponent: null,
   curHistoryAtEnd: false,
@@ -140,6 +141,6 @@ const useComponentsStore = create<Store>()(devtools(immer((set, get) => ({
       curComponent.config.events[eventName] = eventConfig
     })
   }
-}))))
+}))
 
 export default useComponentsStore

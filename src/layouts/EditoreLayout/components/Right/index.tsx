@@ -10,7 +10,6 @@ import { MenuUnfoldOutlined } from '@ant-design/icons'
 import useCanvasStore from '@/stores/canvas'
 import DataSetting from './DataSetting'
 import DataMapSetting from './DataMapSetting'
-import ActionSetting from './ActionSetting'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
@@ -48,8 +47,6 @@ const Right = () => {
         return <DataSetting curComponent={curComponent} />
       case 'dataMap':
         return <DataMapSetting curComponent={curComponent} />
-      case 'action':
-        return <ActionSetting/>
       default:
         return (
           <Form
@@ -84,14 +81,16 @@ const Right = () => {
     showRight ? 
     <div className='h-full'>
       <div className={styles.menuContainer}>
-        <AntdMenu
-          mode='horizontal'
-          style={{ width: '100%', border: 0 }}
-          items={settingAttributeMenuList}
-          onClick={handleClickSettingMenu}
-          selectedKeys={[currentSettingKey]}
-        />
-        <div className='mr-4 cursor-pointer'>
+        <div>
+          <AntdMenu
+            mode='horizontal'
+            style={{ width: '100%', border: 0 }}
+            items={settingAttributeMenuList}
+            onClick={handleClickSettingMenu}
+            selectedKeys={[currentSettingKey]}
+          />
+        </div>
+        <div className='ml-4 cursor-pointer'>
           <MenuUnfoldOutlined onClick={handleClose} className='text-zinc-600' />
         </div>
       </div>
