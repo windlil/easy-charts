@@ -13,7 +13,6 @@ const EventFlow = () => {
         key: comp.id
       }
     })
-    console.log(items)
     return items
   }, [componentList])
 
