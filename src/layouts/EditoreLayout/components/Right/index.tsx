@@ -61,9 +61,14 @@ const Right = () => {
             </Form.Item>}
             {SettingMap?.[curComponent.name]?.[currentSettingKey] && 
             SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
-              <Form.Item name={item.name} className='mb-4' label={item.label} key={nanoid()}>
-                {createSettingItem(item.type)}
-              </Form.Item>
+              <div>
+                <p className='px-8 text-neutral-500'>{item.title}:</p>
+                {item.children.map((c: any) => (
+                  <Form.Item name={c.name} className='mb-4' label={c.label} key={nanoid()}>
+                    {createSettingItem(c.type)}
+                  </Form.Item>
+                ))}
+              </div>
             ))}
           </Form>
         )
