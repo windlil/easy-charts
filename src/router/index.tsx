@@ -12,12 +12,12 @@ function createLazyElement(load: () => Promise<{ default: React.ComponentType<an
 
 const router = createBrowserRouter([
   {
-    path: '/editor',
-    element: createLazyElement(() => import('@/pages/editor/index'))
+    path: '/',
+    element: createLazyElement(() => import('@/pages/home'))
   },
   {
-    path: '/home',
-    element: createLazyElement(() => import('@/pages/home'))
+    path: '/editor',
+    element: createLazyElement(() => import('@/pages/editor/index'))
   },
   {
     path: '/preview',

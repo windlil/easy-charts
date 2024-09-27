@@ -83,7 +83,7 @@ export const CommonBaseActionsConfig = [
 ]
 
 
-export const CommonDataMapSetting= [
+export const CommonDataMapSetting = [
   {
     name: 'xField',
     label: 'x轴',

@@ -29,7 +29,7 @@ const Preview = () => {
     getComponentList(projectId)
 
     if (!projectId) {
-      return navigate('/home')
+      return navigate('/')
     }
   }, [])
 

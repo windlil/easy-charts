@@ -83,7 +83,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
           <CanvasSettingForm setIsModalOpen={setIsModalOpen} messageApi={messageApi} form={form} />
         </Modal>
         <div className='flex gap-2'>
-          <TextButton icon={<ChevronLeft />} onClick={() => navigate('/home')}></TextButton>
+          <TextButton icon={<ChevronLeft />} onClick={() => navigate('/')}></TextButton>
         </div>
         <div className='flex gap-12 items-center'>
           <TextButton icon={<Laptop />} onClick={handleOpenModal}>画布设置</TextButton>

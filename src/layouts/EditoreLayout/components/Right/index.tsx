@@ -1,7 +1,7 @@
-import { Menu as AntdMenu, Form, Input, Empty } from 'antd'
+import { Menu as AntdMenu, Form, Input, Empty, Button } from 'antd'
 import { settingAttributeMenuList } from '@/global'
 import styles from './index.module.less'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import createSettingItem from '@/core/render/renderSettingItem'
 import useComponentsStore, { ComponentItem } from '@/stores/components'
 import { SettingMap } from '@/core/static/map/settingMap'
@@ -10,12 +10,14 @@ import { MenuUnfoldOutlined } from '@ant-design/icons'
 import useCanvasStore from '@/stores/canvas'
 import DataSetting from './DataSetting'
 import DataMapSetting from './DataMapSetting'
+import CustomerConfigModal from './components/CustomerConfigModal'
 
 const Right = () => {
   const curComponent = useComponentsStore(state => state.curComponent)
   const updateComponent = useComponentsStore(state => state.updateComponent)
   const updateCanvas = useCanvasStore(state => state.updateCanvas)
   const showRight = useCanvasStore(state => state.showRight)
+  const modalRef = useRef<any>(null)
 
   const [currentSettingKey, setCurrentSettingKey] = useState('base')
   const [form] = Form.useForm()
@@ -41,6 +43,10 @@ const Right = () => {
     }
   }
 
+  const handleOpen = () => {
+    modalRef!.current!.handleShow()
+  }
+
   const renderSetting = (curComponent: ComponentItem) => {
     switch(currentSettingKey) {
       case 'data':
@@ -62,7 +68,7 @@ const Right = () => {
             {SettingMap?.[curComponent.name]?.[currentSettingKey] && 
             SettingMap[curComponent.name][currentSettingKey].map((item: any) => (
               <div>
-                <p className='px-8 text-neutral-500'>{item.title}:</p>
+                <p className='px-8 text-neutral-500 mb-2'>{item.title}:</p>
                 {item.children.map((c: any) => (
                   <Form.Item name={c.name} className='mb-4' label={c.label} key={nanoid()}>
                     {createSettingItem(c.type)}
@@ -70,6 +76,9 @@ const Right = () => {
                 ))}
               </div>
             ))}
+            <div className='px-4'>
+              <Button type='primary' className='w-full' onClick={handleOpen}>自定义配置</Button>
+            </div>
           </Form>
         )
     }
@@ -85,6 +94,7 @@ const Right = () => {
   return (
     showRight ? 
     <div className='h-full'>
+      <CustomerConfigModal ref={modalRef} />
       <div className={styles.menuContainer}>
         <div>
           <AntdMenu

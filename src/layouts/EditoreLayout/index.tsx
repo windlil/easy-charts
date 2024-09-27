@@ -25,11 +25,12 @@ const EditorLayout = () => {
     const projectId = searchParams.get('projectId')
 
     if (!projectId) {
-      return navigate('/home')
+      return navigate('/')
     }
 
     setProjectId(projectId)
     initComponentsDb(projectId as string, {
+      previewComponentList: componentList,
       componentList,
       canvasColor,
       canvasHeight,
