@@ -1,17 +1,18 @@
 import { DragComponentItem } from './menu'
 
-const context = import.meta.webpackContext('@/core/config/chart', {
-  recursive: true,
-  regExp: /\.ts$/,
-})
+// const context = import.meta.webpackContext('@/core/config/chart', {
+//   recursive: true,
+//   regExp: /\.ts$/,
+// })
 
 const initChartList = () => {
   const ChartList = []
-  for (const path of context.keys()) {
-    const mod: any = context(path)
-    // ChartList.push(mod?.DragConfig)
-    mod?.DragConfig && ChartList.push(mod?.DragConfig)
+  const modules: any = import.meta.glob('/src/core/config/chart/**/index.ts',{eager: true})
+
+  for (const key in modules) {
+    modules[key]?.DragConfig && ChartList.push(modules[key].DragConfig)
   }
+
   return ChartList
 }
 

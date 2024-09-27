@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "rsbuild dev",
-    "build": "rsbuild build",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "rsbuild preview",
     "prepare": "husky"
   },
   "dependencies": {
@@ -35,12 +35,10 @@
     "@commitlint/cli": "19.2.0",
     "@commitlint/config-conventional": "19.1.0",
     "@eslint/js": "^9.9.0",
-    "@rsbuild/core": "1.0.1-rc.4",
-    "@rsbuild/plugin-less": "1.0.1-rc.4",
-    "@rsbuild/plugin-react": "1.0.1-rc.4",
     "@types/node": "^22.5.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "5.1.0-rc-fb9a90fa48-20240614",
@@ -52,7 +50,8 @@
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^8.0.1"
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.8"
   },
   "husky": {
     "hooks": {
