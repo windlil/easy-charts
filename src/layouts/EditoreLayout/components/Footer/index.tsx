@@ -25,6 +25,7 @@ const Footer:FC<{
   const switchSaveHandle = (value: boolean) => {
     if (value) {
       updateComponentsDb(projectId, {
+        previewComponentList: structuredClone(componentList),
         componentList,
         curLinkNode: currentNode,
         canvasWidth,
@@ -41,6 +42,7 @@ const Footer:FC<{
     if (isAutoSave) {
       timer = setInterval(() => {
         updateComponentsDb(projectId, {
+          previewComponentList: structuredClone(componentList),
           componentList,
           curLinkNode: currentNode,
           canvasWidth,
@@ -60,7 +62,7 @@ const Footer:FC<{
       <div className='flex gap-4'>
         <div className='flex items-center gap-2 pr-2 border-r border-[#363636]'>
           <Switch size={'small'} value={isAutoSave} onChange={switchSaveHandle} />
-          <span>自动保存</span>
+          <span>定时保存</span>
           {isAutoSave && lastSaveDate && <span className='text-neutral-500 w-32'>({lastSaveDate})</span>}
         </div>
         <div className='text-gray-400'>

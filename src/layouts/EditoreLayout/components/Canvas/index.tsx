@@ -25,7 +25,6 @@ const Canvas:FC<{ projectId: string }> = ({ projectId }) => {
   const verticalRulerRef = useRef<Ruler>(null)
   const horizontalRulerRef = useRef<Ruler>(null)
 
-
   const { containerMouseDown, handleScale, handlePos, zoom, unit, posX, posY } = useRuler(containerRef, layoutRef, canvasRef)
   const { drop } = useCanvasDrop(canvasRef)
 

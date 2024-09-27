@@ -2,17 +2,19 @@ import { getCanvasById } from '@/db'
 import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { renderPreviewComponents } from '@/core/render/renderComponents'
-import { ComponentItem } from '@/stores/components'
+import useComponentsStore from '@/stores/components'
 
 const Preview = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const [componentList, setComponentList] = useState<ComponentItem[]>([])
+  const setPreviewComponent = useComponentsStore(state => state.setPreviewComponent)
+
   const [canvas, setCanvas] = useState<any>({})
+  const previewComponentList = useComponentsStore(state => state.previewComponentList)
 
   const getComponentList = async (projectId: string) => {
     const canvas = await getCanvasById(projectId)
-    setComponentList(canvas?.canvasStore?.componentList ?? [])
+    setPreviewComponent(canvas?.canvasStore?.previewComponentList ?? [])
     setCanvas({
       canvasWidth: canvas?.canvasStore.canvasWidth,
       canvasHeight: canvas?.canvasStore.canvasHeight,
@@ -43,7 +45,7 @@ const Preview = () => {
           backgroundColor: canvas?.canvasColor
         }}
       >
-        {renderPreviewComponents(componentList)}
+        {renderPreviewComponents(previewComponentList)}
       </div>
     </div>
   )

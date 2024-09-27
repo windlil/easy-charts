@@ -23,6 +23,7 @@ export class LinkNode {
 export let currentNode = new LinkNode()
 
 interface Store {
+  previewComponentList: ComponentItem[]
   curHistoryAtEnd: boolean
   componentList: ComponentItem[]
   curComponent: ComponentItem | null
@@ -34,6 +35,8 @@ interface Store {
   undo: () => void
   initStore: (componentList: ComponentItem[], curLinkNode: LinkNode) => void
   updateCurComponentEvent: (id: string, eventName: string, eventConfig: any) => void
+  updatePreviewComponent: (id: string, config: any) => void
+  setPreviewComponent: (componentList: ComponentItem[]) => void
 }
 
 const getCurComponentById = (componentList: ComponentItem[], id: string) => {
@@ -41,6 +44,7 @@ const getCurComponentById = (componentList: ComponentItem[], id: string) => {
 }
 
 const useComponentsStore = defineStore<Store>((set, get) => ({
+  previewComponentList: [],
   componentList: [],
   curComponent: null,
   curHistoryAtEnd: false,
@@ -51,6 +55,20 @@ const useComponentsStore = defineStore<Store>((set, get) => ({
       if (!curLinkNode.next) {
         state.curHistoryAtEnd = true
       }
+    })
+  },
+  updatePreviewComponent(id: string, config: any) {
+    set(state => {
+      const currentPreviewComponent = getCurComponentById(state.previewComponentList, id)!
+      currentPreviewComponent.config = {
+        ...currentPreviewComponent?.config,
+        ...config,
+      }
+    })
+  },
+  setPreviewComponent(componentList) {
+    set(state => {
+      state.previewComponentList = componentList
     })
   },
   addComponent(component) {

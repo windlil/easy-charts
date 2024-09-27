@@ -64,8 +64,62 @@ const Component:FC<{
 const PreviewComponent:FC<{
   component: ComponentItem
 }> = memo(({ component }) => {
+  const updatePreviewComponent = useComponentsStore(state => state.updatePreviewComponent)
   const config = structuredClone(component.config)
-  config.animate = true
+  
+  if (config.dataSource !== 'api') {
+    config.animate = {
+      appear: {
+        animation: 'path-in',
+        duration: 1500, // 动画持续时间，单位为毫秒
+      },
+      update: {
+        animation: 'path-update',
+        duration: 1000, // 动画持续时间，单位为毫秒
+      },
+      enter: {
+        animation: 'path-enter',
+        duration: 1000, // 动画持续时间，单位为毫秒
+      },
+      leave: {
+        animation: 'path-leave',
+        duration: 500, // 动画持续时间，单位为毫秒
+      },
+    }
+  }
+
+  const getData = async () => {
+    const requestConfig: any = component.config?.request
+    if (!requestConfig) return
+
+    const func = new Function('return ' + requestConfig.stringFunction)()
+
+    const data = func(await request(requestConfig.method, requestConfig.url))
+
+    if (!data) return
+    updatePreviewComponent(component.id, {
+      data,
+      // animate: false
+    })
+  }
+
+  useEffect(() => {
+    let timer = null
+    if (component.config?.dataSource === 'api') {
+      getData()
+      if (config?.request?.interval) {
+        timer = setInterval(() => {
+          getData()
+        }, config.request?.interval * 1000)
+      }
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer)
+      }
+    }
+  }, [])
+
   return (
     <>
       <div

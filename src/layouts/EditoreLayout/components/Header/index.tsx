@@ -41,6 +41,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
   const handleSave = () => {
     if (componentList.length) {
       updateComponentsDb(projectId, {
+        previewComponentList: structuredClone(componentList),
         componentList,
         curLinkNode: currentNode,
         canvasWidth,
@@ -49,6 +50,7 @@ const Header:FC<{ projectId: string }> = ({ projectId }) => {
       })
     } else {
       updateComponentsDb(projectId, {
+        previewComponentList: structuredClone(componentList),
         componentList,
         curLinkNode: new LinkNode(),
         canvasWidth,

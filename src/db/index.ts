@@ -6,6 +6,7 @@ interface CanvasDbStore {
   timestamp: number
   canvasStore: {
     componentList: ComponentItem[],
+    previewComponentList: ComponentItem[],
     curLinkNode: LinkNode,
     canvasWidth: number
     canvasHeight: number
