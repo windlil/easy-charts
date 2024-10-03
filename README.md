@@ -13,7 +13,7 @@ Easy Charts is a visual large-screen editor based on React to help you quickly d
 ```
 git clone git@github.com:windlil/easy-charts.git
 
-cd easy-charts
+cd easy-charts 
 
 pnpm i
 
